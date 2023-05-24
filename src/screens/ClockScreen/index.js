@@ -26,17 +26,19 @@ const ClockScreen = () => {
    * */ 
   const [timeDetails, setTimeDetails] = useState(null);
 
+  const [timeErrMsg, setTimeErrMsg] = useState(`ERROR`);
+
   const isMountedRef = useIsMountedRef();
 
   useEffect(() => {
     const fetchTimeData = async () => {
       try {
-        // 
+        // console.log('here');
         const response = await axios.get('http://worldtimeapi.org/api/ip');
         const ipData = response.data;
         const currentTime = moment(ipData.datetime).format('YYYY-MM-DD HH:mm:ss');
         // console.log(ipData);
-
+        
         if (isMountedRef.current) {
           setIpAddress(ipData.client_ip);
           setCurrentTime(currentTime);
@@ -56,12 +58,31 @@ const ClockScreen = () => {
       catch (error) {
         console.log(
           'Error fetching time data:',
-          JSON.stringify(error, null, 2),
+          error,
+          // JSON.stringify(error, null, 2)
         );
+        setTimeErrMsg("Can't get time");
       }
-    };    
+    };
 
     fetchTimeData();
+      
+    // const msInMin = 60000;
+    // const msIn3Sec = 3000;
+    const msInSec = 1000;
+    const intervalMS = msInSec;
+    let intervalId = null;
+
+    // uncomment this only when needed (avoid getting blocked by API again)
+    if (intervalMS >= 1000) { // sets hard limit to avoid over-querying API
+      intervalId = setInterval( // exec on an interval
+        fetchTimeData,
+        intervalMS,
+      );
+    }
+
+    // clear interval when component unmounts
+    return () => clearInterval(intervalId);
   }, []);
 
   useEffect(() => {
@@ -87,7 +108,7 @@ const ClockScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{currentTime}</Text>
+      <Text style={styles.text}>{currentTime || timeErrMsg}</Text>
       <Text style={styles.text}>{location}</Text>
     </View>
   );
