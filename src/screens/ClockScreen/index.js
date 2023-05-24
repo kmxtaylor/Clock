@@ -4,6 +4,10 @@ import axios from 'axios';
 import moment from 'moment';
 
 import Text from 'components/Text';
+import Header from './Header';
+import MainInfo from './MainInfo';
+import ButtonMoreLess from './ButtonMoreLess';
+import ExpandedInfo from './ExpandedInfo';
 
 import useIsMountedRef from 'hooks/useIsMountedRef';
 
@@ -107,20 +111,26 @@ const ClockScreen = () => {
   }, [ipAddress]); // only update location if ip address changes
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>{currentTime || timeErrMsg}</Text>
-      <Text style={styles.text}>{location}</Text>
-    </View>
+    <>
+    {/* <View style={styles.container}> */}
+      {/* <Text style={styles.text}>{currentTime || timeErrMsg}</Text>
+      <Text style={styles.text}>{location}</Text> */}
+    {/* </View> */}
+      <Header />
+      {/* <MainInfo />
+      <ButtonMoreLess />
+      <ExpandedInfo /> */}
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    // backgroundColor:'black',
-  },
+  // container: {
+  //   flex: 1,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   // backgroundColor:'black',
+  // },
   text: {
     fontSize: 24,
   },
