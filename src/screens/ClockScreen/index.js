@@ -74,12 +74,12 @@ const ClockScreen = () => {
     let intervalId = null;
 
     // uncomment this only when needed (avoid getting blocked by API again)
-    if (intervalMS >= 1000) { // sets hard limit to avoid over-querying API
-      intervalId = setInterval( // exec on an interval
-        fetchTimeData,
-        intervalMS,
-      );
-    }
+    // if (intervalMS >= 1000) { // sets hard limit to avoid over-querying API
+    //   intervalId = setInterval( // exec on an interval
+    //     fetchTimeData,
+    //     intervalMS,
+    //   );
+    // }
 
     // clear interval when component unmounts
     return () => clearInterval(intervalId);
