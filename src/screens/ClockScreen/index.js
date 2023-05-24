@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import axios from 'axios';
 import moment from 'moment';
+
+import Text from 'components/Text';
 
 const ClockScreen = () => {
   const [currentTime, setCurrentTime] = useState(null);
@@ -41,6 +43,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    // backgroundColor:'black',
   },
   text: {
     fontSize: 24,
