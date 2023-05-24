@@ -5,9 +5,13 @@ import moment from 'moment';
 
 import Text from 'components/Text';
 
+import useIsMountedRef from 'hooks/useIsMountedRef';
+
 const ClockScreen = () => {
   const [currentTime, setCurrentTime] = useState(null);
   const [location, setLocation] = useState(null);
+
+  const isMountedRef = useIsMountedRef();
 
   useEffect(() => {
     const fetchCurrentTimeAndLocation = async () => {
@@ -20,8 +24,10 @@ const ClockScreen = () => {
         const locationData = locationResponse.data;
         const location = `${locationData.city}, ${locationData.regionName}, ${locationData.country}`;
     
-        setCurrentTime(currentTime);
-        setLocation(location);
+        if (isMountedRef.current) {
+          setCurrentTime(currentTime);
+          setLocation(location);
+        }
       } catch (error) {
         console.log('Error fetching current time and location:', error);
       }
