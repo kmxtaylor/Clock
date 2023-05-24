@@ -45,8 +45,7 @@ const App = () => {
         testID='app-screen'
       >
         <ImageBackground
-          // source={require('/../assets/images/bg-image-daytime.jpg')}
-          source={require('../assets/bg-image-daytime.jpg')}
+          source={require('/../assets/images/bg-image-daytime.jpg')}
           style={[styles.paddingContainer, styles.bgImage]}
           resizeMode='cover'
         >
