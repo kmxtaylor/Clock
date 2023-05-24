@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   StatusBar,
   View,
+  ImageBackground
 } from 'react-native';
 
 import {
@@ -40,14 +41,17 @@ const App = () => {
       <StatusBar barStyle='light-content' />
       <SafeAreaView
         style={styles.container}
+        onLayout={onLayoutRootView}
+        testID='app-screen'
       >
-        <View
-          onLayout={onLayoutRootView}
-          style={styles.subContainer}
-          testID='app-screen'
+        <ImageBackground
+          // source={require('/../assets/images/bg-image-daytime.jpg')}
+          source={require('../assets/bg-image-daytime.jpg')}
+          style={[styles.paddingContainer, styles.bgImage]}
+          resizeMode='cover'
         >
           <ClockScreen />
-        </View>
+        </ImageBackground>
       </SafeAreaView>
     </>
   );
@@ -57,12 +61,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  subContainer: {
+  paddingContainer: {
     flex: 1,
-    // backgroundColor: '',
     paddingHorizontal: 15,
     paddingVertical: 10,
     justifyContent: 'space-between',
+
+    // backgroundColor:'black',
+  },
+  bgImage: {
+    // opacity: 0.9,
   },
 });
 
