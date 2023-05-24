@@ -22,7 +22,9 @@ const ClockScreen = () => {
     
         const locationResponse = await axios.get(`http://ip-api.com/json/${data.client_ip}`);
         const locationData = locationResponse.data;
-        const location = `${locationData.city}, ${locationData.regionName}, ${locationData.country}`;
+        // console.log(locationData);
+
+        const location = `${locationData.city}, ${locationData.region}`;
     
         if (isMountedRef.current) {
           setCurrentTime(currentTime);
