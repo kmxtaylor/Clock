@@ -3,6 +3,8 @@ import { StyleSheet, View } from 'react-native';
 import moment from 'moment';
 
 import Text from 'components/Text';
+import IconSun from 'components/svgs/IconSun';
+import IconMoon from 'components/svgs/IconMoon';
 
 // import useIsMountedRef from 'hooks/useIsMountedRef';
 
@@ -41,10 +43,30 @@ const MainInfo = ({currentTime, timeZoneAbbrev, location, style, ...rest}) => {
     // console.log(`hr: ${hr}; tc: ${tc}`)
   }, [currentTime]);
 
+  const GreetingIcon = () => {
+    if (timeCategory === 'morning' || timeCategory === 'afternoon') {
+      return <IconSun />;
+    }
+    else if (timeCategory === 'evening') {
+      return <IconMoon />;
+    }
+    else {
+      return null;
+    }
+  };
+
+  // const GreetingText = ({currentTime}) => {
+  //   return (
+  //     <Text style={styles.greetingText}>
+  //       Good {timeCategory}, it's currently
+  //     </Text>
+  //   );
+  // };
+
   return (
     <View style={[styles.container, style]} {...rest}>
       <View style={styles.greetingRow}>
-        {/* SVG component: iconSun / iconMoon */}
+        <GreetingIcon />
         <Text style={styles.greetingText}>
           Good {timeCategory}, it's currently
         </Text>
@@ -77,6 +99,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     textTransform: 'uppercase',
     letterSpacing: 2,
+    marginLeft: 20,
   },
   clockRow: {
     flexDirection: 'row',
