@@ -117,12 +117,14 @@ const ClockScreen = () => {
       <Text style={styles.text}>{location}</Text> */}
     {/* </View> */}
       <Header />
-      <MainInfo 
-        currentTime={currentTime}
-        timeZoneAbbrev={timeDetails?.timeZone?.abbrev}
-        location={location}
-      />
-      {/* <ButtonMoreLess /> */}
+      <View style={{gap: 40}}>
+        <MainInfo 
+          currentTime={currentTime}
+          timeZoneAbbrev={timeDetails?.timeZone?.abbrev}
+          location={location}
+        />
+        <ButtonMoreLess />
+      </View>
       {/* <ExpandedInfo /> */}
     </>
   );
