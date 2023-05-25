@@ -61,15 +61,17 @@ const styles = StyleSheet.create({
     flex: 1, // Take up remaining space in the row
   },
   quoteText: {
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: '400',
     textAlign: 'left',
+    letterSpacing: 0.25,
     marginBottom: 15,
   },
   quoteAuthor: {
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: '700',
     textAlign: 'left',
+    letterSpacing: 0.25,
   },
   btn: {
     // width: 50, // Set a fixed width for the btnCol
