@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import moment from 'moment';
 
@@ -9,76 +9,52 @@ import IconMoon from 'components/svgs/IconMoon';
 // import useIsMountedRef from 'hooks/useIsMountedRef';
 
 const MainInfo = ({currentTime, timeZoneAbbrev, location, style, ...rest}) => {
-  const [amOrPm, setAmOrPm] = useState(null);
-  const [timeCategory, setTimeCategory] = useState(null);
-
   // const isMountedRef = useIsMountedRef();
 
-  useEffect(() => {
-    if (currentTime === null) {
-      return;
-    }
-
+  const Greeting = ({ currentTime }) => {
     // console.log(`currentTime: ${currentTime}`);
-
-    let ampm = moment(currentTime).format('A');
-    // console.log(`ampm: ${ampm}`)
-    setAmOrPm(ampm);
-
-    let hr = moment(currentTime).format('HH');
-    let tc = null;
-    if (hr >= 5 && hr < 12) {
-      tc = 'morning';
-    }
-    else if (hr >= 12 && hr < 18) {
-      tc = 'afternoon';
-    }
-    else if (hr >= 18 || hr < 5) {
-      tc = 'evening';
-    }
-    else {
-      console.log('something went wrong while calculating time category for', hr);
-    }
-    setTimeCategory(tc);
-    // console.log(`hr: ${hr}; tc: ${tc}`)
-  }, [currentTime]);
-
-  const GreetingIcon = () => {
-    if (timeCategory === 'morning' || timeCategory === 'afternoon') {
-      return <IconSun />;
-    }
-    else if (timeCategory === 'evening') {
-      return <IconMoon />;
-    }
-    else {
+    if (!currentTime) {
       return null;
     }
-  };
 
-  // const GreetingText = ({currentTime}) => {
-  //   return (
-  //     <Text style={styles.greetingText}>
-  //       Good {timeCategory}, it's currently
-  //     </Text>
-  //   );
-  // };
+    let hr = moment(currentTime).format('HH');
+    let timeCategory = null;
+    if (hr >= 5 && hr < 12) {
+      timeCategory = 'morning';
+    }
+    else if (hr >= 12 && hr < 18) {
+      timeCategory = 'afternoon';
+    }
+    else if (hr >= 18 || hr < 5) {
+      timeCategory = 'evening';
+    }
+    else {
+      console.log('error while calculating time category for', hr);
+    }
+    // console.log(`hr: ${hr}; tc: ${tc}`)
+
+    return (
+      <>
+        { timeCategory === 'evening' ? <IconMoon /> : <IconSun /> }
+        <Text style={styles.greetingText}>
+          Good {timeCategory}, it's currently
+        </Text>
+      </>
+    );
+  };
 
   return (
     <View style={[styles.container, style]} {...rest}>
       <View style={styles.greetingRow}>
-        <GreetingIcon />
-        <Text style={styles.greetingText}>
-          Good {timeCategory}, it's currently
-        </Text>
+        <Greeting currentTime={currentTime} />
       </View>
       <View style={styles.clockRow}>
         <Text style={styles.time}>{currentTime}</Text>
         <View style={styles.abbrevsCol}>
-          <Text style={styles.amOrPm}>{amOrPm}</Text>
-          { 
-            timeZoneAbbrev &&
+          <Text style={styles.amOrPm}>{moment(currentTime).format('A')}</Text>
+          { timeZoneAbbrev && (
             <Text style={styles.timeZoneAbbrev}>{timeZoneAbbrev}</Text>
-          }
+          )}
         </View>
       </View>
       <View style={styles.locationRow}>
