@@ -35,14 +35,13 @@ const renderInfoRows = (timeDetails) => {
   return infoRows;
 };
 
-const MainInfo = ({timeDetails = null, style, ...rest}) => {
+const ExpandedInfo = ({timeDetails = null, style, ...rest}) => {
+  // console.log(`timeDetails: ${JSON.stringify(timeDetails, null, 2)}`);
 
-  // {
-  //   'Current Timezone': timeDetails?.timeZone.full,
-  //   'Day of the Year': timeDetails?.dayOfYear,
-  //   'Day of the Week': timeDetails?.dayOfWeek,
-  //   'Week Number': timeDetails?.weekNumber,
-  // };
+  if (!timeDetails) {
+    // console.log('no time details -- hiding expanded info');
+    return null;
+  }
 
   const displayDetails = [
     { 'Current Timezone': timeDetails?.timeZone.full },
@@ -91,4 +90,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MainInfo;
+export default ExpandedInfo;

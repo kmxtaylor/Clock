@@ -30,7 +30,7 @@ const ClockScreen = () => {
    * */ 
   const [timeDetails, setTimeDetails] = useState(null);
 
-  const [timeErrMsg, setTimeErrMsg] = useState(`ERROR`);
+  const [timeErrMsg, setTimeErrMsg] = useState(null);
 
   const isMountedRef = useIsMountedRef();
 
@@ -38,12 +38,12 @@ const ClockScreen = () => {
     const fetchTimeData = async () => {
       try {
         const ipResponse = await axios.get('http://worldtimeapi.org/api/ip');
-        // const ipResponse = null;
-        const ipData = ipResponse?.data;
-        if (ipData) {
-          console.log(`ipData: ${ipData}`);
-          const currentTime = moment(ipData.datetime).format('HH:mm:ss');
-          // const currentTime = moment(ipData.datetime).format('YYYY-MM-DD HH:mm:ss');
+        // const ipResponse = null; // for testing only
+        const ipData = ipResponse.data;
+        // if (ipData) {
+          // console.log(`ipData: ${JSON.stringify(ipData, null, 2)}`);
+          // const currentTime = moment(ipData.datetime).format('HH:mm:ss');
+          const currentTime = moment(ipData.datetime).format('YYYY-MM-DD HH:mm:ss');
           
           if (isMountedRef.current) {
             setIpAddress(ipData.client_ip);
@@ -59,16 +59,21 @@ const ClockScreen = () => {
             };
             setTimeDetails(td);
             // console.log(JSON.stringify(td, null, 2))
+            setTimeErrMsg(null);
           }
-        }
-      } 
+        // }
+        // else {
+        //   setTimeErrMsg("Can't get time");
+        // }
+      }
       catch (error) {
         console.log(
           'Error fetching time data:',
           error,
           // JSON.stringify(error, null, 2)
         );
-        setTimeErrMsg("Can't get time");
+        setTimeDetails(null);
+        setTimeErrMsg("Clock Unavailable");
       }
     };
 
@@ -97,11 +102,13 @@ const ClockScreen = () => {
       try {
         // fetch location data
         const locationResponse = await axios.get(`http://ip-api.com/json/${ipAddress}`);
-        // const locationResponse = null;
+        // const locationResponse = null;  // for testing only
         const locationData = locationResponse?.data;
         // console.log(locationData);
 
-        const location = `${locationData.city}, ${locationData.region}`;
+        const location = (locationData.city && locationData.region)
+          ? `${locationData.city}, ${locationData.region}`
+          : null;
 
         if (isMountedRef.current) {
           setLocation(location);
@@ -121,14 +128,22 @@ const ClockScreen = () => {
       <Text style={styles.text}>{location}</Text> */}
     {/* </View> */}
       <Header />
-      <View style={{gap: 40}}>
-        <MainInfo 
-          currentTime={currentTime || timeErrMsg}
-          timeZoneAbbrev={timeDetails?.timeZone?.abbrev}
-          location={location}
-        />
-        <ButtonMoreLess />
-      </View>
+      { timeErrMsg ? (
+        <Text style={styles.timeErrMsg}>{timeErrMsg}</Text>
+      ) : (
+        <View
+          style={{gap: 40}}
+        >
+          <MainInfo 
+            // style={styles.mainInfo}
+            currentTime={currentTime}
+            timeErrMsg={timeErrMsg}
+            timeZoneAbbrev={timeDetails?.timeZone?.abbrev}
+            location={location}
+          />
+          <ButtonMoreLess  />
+        </View>
+      )}
       <ExpandedInfo timeDetails={timeDetails} />
     </>
   );
@@ -144,6 +159,15 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 24,
   },
+  timeErrMsg: {
+    fontSize: 60,
+    fontWeight: '700',
+    color: 'red',
+    marginBottom: '100%', // centers timeErrMsg w/o changing item alignment
+  },
+  // mainInfo: {
+  //   margin: 20,
+  // },
 });
 
 export default ClockScreen;

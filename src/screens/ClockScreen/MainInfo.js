@@ -9,13 +9,15 @@ import IconMoon from 'components/svgs/IconMoon';
 // import useIsMountedRef from 'hooks/useIsMountedRef';
 
 const MainInfo = ({
-  currentTime = null, timeZoneAbbrev = null, location = null, style, ...rest
+  currentTime = null, timeErrMsg = null, timeZoneAbbrev = null, location = null, style, ...rest
 }) => {
   // const isMountedRef = useIsMountedRef();
 
   const Greeting = ({ currentTime }) => {
-    // console.log(`currentTime: ${currentTime}`);
+    // console.log(`currentTime: ${currentTime}, location: ${location}`);
+    // console.log(`timeErrMsg: ${timeErrMsg}`);
     if (!currentTime) {
+      // console.log('No current time -- hiding greeting');
       return null;
     }
 
@@ -36,22 +38,27 @@ const MainInfo = ({
     // console.log(`hr: ${hr}; tc: ${tc}`)
 
     return (
-      <>
+      <View style={styles.greetingRow}>
         { timeCategory === 'evening' ? <IconMoon /> : <IconSun /> }
         <Text style={styles.greetingText}>
           Good {timeCategory}, it's currently
         </Text>
-      </>
+      </View>
     );
   };
 
   return (
     <View style={[styles.container, style]} {...rest}>
-      <View style={styles.greetingRow}>
-        <Greeting currentTime={currentTime} />
-      </View>
+      <Greeting currentTime={currentTime} />
       <View style={styles.clockRow}>
-        <Text style={styles.time}>{currentTime}</Text>
+        {/* { currentTime ? ( */}
+          <Text style={styles.time}>
+            {moment(currentTime).format('HH:mm:ss')}
+          </Text>
+        {/* )
+        : (
+          <Text style={styles.timeErrMsg}>{timeErrMsg}</Text>
+        )} */}
         <View style={styles.abbrevsCol}>
           { currentTime && (
             <Text style={styles.amOrPm}>{moment(currentTime).format('A')}</Text>
