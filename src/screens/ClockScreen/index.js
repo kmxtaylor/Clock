@@ -125,7 +125,7 @@ const ClockScreen = () => {
         />
         <ButtonMoreLess />
       </View>
-      {/* <ExpandedInfo /> */}
+      <ExpandedInfo timeDetails={timeDetails} />
     </>
   );
 };
