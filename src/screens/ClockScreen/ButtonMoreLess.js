@@ -1,35 +1,74 @@
-import { StyleSheet, Pressable } from 'react-native';
+import { StyleSheet, Pressable, View } from 'react-native';
 
 import Text from 'components/Text';
 import IconArrowUp from 'components/svgs/IconArrowUp';
 
-const IconArrow = ({ showingMore }) => {
-  if (showingMore) {
+// const IconArrow = ({ isShowingMore }) => {
+//   if (isShowingMore) {
+//     return (
+//       <IconArrowUp /> // arrow up
+//     );
+//   }
+//   else {
+//     return (
+//       <IconArrowUp style={{transform: [{ rotate: '180deg' }]}} /> // arrow down
+//     );
+//   }
+// };
+
+// expansion should probably be handled in ClockScreen b/c affects ExpandedInfo
+const ButtonMoreLess = ({ isShowingMore, setIsShowingMore, style, ...rest }) => {
+  if (isShowingMore) {
     return (
-      <IconArrowUp /> // arrow up
+      <Pressable
+        style={[styles.btn, style]}
+        onPress={() => {
+          console.log(`setting isShowingMore: ${!isShowingMore}`);
+          setIsShowingMore(!isShowingMore);
+        }}
+        {...rest}
+      >
+        <View style={[styles.btn, styles.btnPadded, styles.btnBordered]}>
+          <Text style={styles.text}>
+            Less
+          </Text>
+          <IconArrowUp />
+        </View>
+      </Pressable>
     );
   }
   else {
     return (
-      <IconArrowUp style={{transform: [{ rotate: '180deg' }]}} /> // arrow down
+      <Pressable
+        style={[styles.btn, styles.btnPadded, style]}
+        onPress={() => {
+          console.log(`setting isShowingMore: ${!isShowingMore}`);
+          setIsShowingMore(!isShowingMore);
+        }}
+        {...rest}
+      >
+        <Text style={styles.text}>
+          More
+        </Text>
+        <IconArrowUp style={{transform: [{ rotate: '180deg' }]}} />
+      </Pressable>
     );
   }
-};
-
-// expansion should probably be handled in ClockScreen b/c affects ExpandedInfo
-const ButtonMoreLess = ({ showingMore, setShowingMore, style, ...rest }) => {
-  return (
-    <Pressable
-      style={[styles.btn, style]}
-      onPress={() => setShowingMore(!showingMore)}
-      {...rest}
-    >
-      <Text style={styles.text}>
-        {showingMore ? 'Less' : 'More'}
-      </Text>
-      <IconArrow showingMore={showingMore} />
-    </Pressable>
-  );
+  // return (
+  //   <Pressable
+  //     style={[styles.btn, style]}
+  //     onPress={() => {
+  //       console.log(`setting isShowingMore: ${!isShowingMore}`);
+  //       setIsShowingMore(!isShowingMore);
+  //     }}
+  //     {...rest}
+  //   >
+  //     <Text style={styles.text}>
+  //       {isShowingMore ? 'Less' : 'More'}
+  //     </Text>
+  //     <IconArrow isShowingMore={isShowingMore} />
+  //   </Pressable>
+  // );
 }
 
 const styles = StyleSheet.create({
@@ -41,17 +80,24 @@ const styles = StyleSheet.create({
     width: 140,
     backgroundColor: 'white',
     borderRadius: 25,
-    padding: 5,
+    // padding: 5,
+
     // justifyContent: 'center',
     // alignItems: 'flex-start',
     // paddingVertical: 10,
     // textAlign: 'left',
     // textAlignVertical: 'center',
+  },
+  btnPadded: {
+    padding: 5,
+  },
+  btnBordered: {
+    // padding: 5,
 
     // show border when expanded:
-    // borderWidth: 2,
-    // borderStyle: 'dashed',
-    // borderColor: 'purple',
+    borderWidth: 2,
+    borderStyle: 'dashed',
+    borderColor: 'purple',
   },
   text: {
     fontSize: 16,

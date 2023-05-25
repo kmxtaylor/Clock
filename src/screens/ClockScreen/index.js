@@ -29,8 +29,8 @@ const ClockScreen = () => {
    * }
    * */ 
   const [timeDetails, setTimeDetails] = useState(null);
-
   const [timeErrMsg, setTimeErrMsg] = useState(null);
+  const [isShowingMore, setIsShowingMore] = useState(false);
 
   const isMountedRef = useIsMountedRef();
 
@@ -141,7 +141,10 @@ const ClockScreen = () => {
             timeZoneAbbrev={timeDetails?.timeZone?.abbrev}
             location={location}
           />
-          <ButtonMoreLess  />
+          <ButtonMoreLess
+            isShowingMore={isShowingMore}
+            setIsShowingMore={setIsShowingMore}
+          />
         </View>
       )}
       <ExpandedInfo timeDetails={timeDetails} />
