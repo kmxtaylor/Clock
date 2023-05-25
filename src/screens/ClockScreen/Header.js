@@ -14,7 +14,6 @@ const Header = ({ style, ...rest }) => {
   const isMountedRef = useIsMountedRef();
 
   const fetchQuoteData = useCallback(async () => {
-    // console.log();
     try {
       const response = await axios.get('https://api.quotable.io/random');
       const quoteData = response.data;
@@ -33,20 +32,24 @@ const Header = ({ style, ...rest }) => {
     fetchQuoteData();
   }, []);
 
-  return (
-    <View style={[styles.container, style]} {...rest}>
-      <View style={styles.quoteCol}>
-        <Text style={styles.quoteText}>"{quoteText}"</Text>
-        <Text style={styles.quoteAuthor}>{quoteAuthor}</Text>
+  if (!quoteText || !quoteAuthor) {
+    // don't replace space or otherwise change layout
+    return <View style={[styles.container, style]} {...rest}/>;
+  }
+  else {
+    return (
+      <View style={[styles.container, style]} {...rest}>
+        <View style={styles.quoteCol}>
+          <Text style={styles.quoteText}>"{quoteText}"</Text>
+          <Text style={styles.quoteAuthor}>{quoteAuthor}</Text>
+        </View>
+          <Pressable style={[styles.btn]} onPress={fetchQuoteData}>
+            <IconRefresh />
+            {/* <Text>Placeholder</Text> */}
+          </Pressable>
       </View>
-      {/* <View style={styles.btnCol}> */}
-        <Pressable style={[styles.btn]} onPress={fetchQuoteData}>
-          <IconRefresh />
-          {/* <Text>Placeholder</Text> */}
-        </Pressable>
-      {/* </View> */}
-    </View>
-  );
+    );
+  }
 };
 
 const styles = StyleSheet.create({
