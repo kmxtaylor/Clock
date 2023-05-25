@@ -12,14 +12,12 @@ const MainInfo = ({currentTime, timeZoneAbbrev, location, style, ...rest}) => {
 
   // const isMountedRef = useIsMountedRef();
 
-  // ...
-
   useEffect(() => {
     if (currentTime === null) {
       return;
     }
 
-    console.log(`currentTime: ${currentTime}`);
+    // console.log(`currentTime: ${currentTime}`);
 
     let ampm = moment(currentTime).format('A');
     // console.log(`ampm: ${ampm}`)
@@ -55,7 +53,8 @@ const MainInfo = ({currentTime, timeZoneAbbrev, location, style, ...rest}) => {
         <Text style={styles.time}>{currentTime}</Text>
         <View style={styles.abbrevsCol}>
           <Text style={styles.amOrPm}>{amOrPm}</Text>
-          { timeZoneAbbrev &&
+          { 
+            timeZoneAbbrev &&
             <Text style={styles.timeZoneAbbrev}>{timeZoneAbbrev}</Text>
           }
         </View>

@@ -25,7 +25,7 @@ const renderInfoRows = (timeDetails) => {
 
   for (const [label, val] of Object.entries(displayDetails)) {
     infoRows.push(
-      <View style={styles.row}>
+      <View key={label} style={styles.row}>
         <Text style={styles.leftColText}>{label}</Text>
         <Text style={styles.rightColText}>{val}</Text>
       </View>
