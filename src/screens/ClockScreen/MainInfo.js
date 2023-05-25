@@ -8,7 +8,9 @@ import IconMoon from 'components/svgs/IconMoon';
 
 // import useIsMountedRef from 'hooks/useIsMountedRef';
 
-const MainInfo = ({currentTime, timeZoneAbbrev, location, style, ...rest}) => {
+const MainInfo = ({
+  currentTime = null, timeZoneAbbrev = null, location = null, style, ...rest
+}) => {
   // const isMountedRef = useIsMountedRef();
 
   const Greeting = ({ currentTime }) => {
@@ -51,7 +53,9 @@ const MainInfo = ({currentTime, timeZoneAbbrev, location, style, ...rest}) => {
       <View style={styles.clockRow}>
         <Text style={styles.time}>{currentTime}</Text>
         <View style={styles.abbrevsCol}>
-          <Text style={styles.amOrPm}>{moment(currentTime).format('A')}</Text>
+          { currentTime && (
+            <Text style={styles.amOrPm}>{moment(currentTime).format('A')}</Text>
+          )}
           { timeZoneAbbrev && (
             <Text style={styles.timeZoneAbbrev}>{timeZoneAbbrev}</Text>
           )}

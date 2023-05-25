@@ -37,26 +37,29 @@ const ClockScreen = () => {
   useEffect(() => {
     const fetchTimeData = async () => {
       try {
-        // console.log('here');
-        const response = await axios.get('http://worldtimeapi.org/api/ip');
-        const ipData = response.data;
-        const currentTime = moment(ipData.datetime).format('YYYY-MM-DD HH:mm:ss');
-        // console.log(ipData);
-        
-        if (isMountedRef.current) {
-          setIpAddress(ipData.client_ip);
-          setCurrentTime(currentTime);
-          let td = {
-            timeZone: {
-              abbrev: ipData.abbreviation,
-              full: ipData.timezone.replace(/_/g, " "), // replace _ w/ spaces
-            },
-            dayOfYear: ipData.day_of_year,
-            dayOfWeek: ipData.day_of_week,
-            weekNumber: ipData.week_number,
-          };
-          setTimeDetails(td);
-          // console.log(JSON.stringify(td, null, 2))
+        const ipResponse = await axios.get('http://worldtimeapi.org/api/ip');
+        // const ipResponse = null;
+        const ipData = ipResponse?.data;
+        if (ipData) {
+          console.log(`ipData: ${ipData}`);
+          const currentTime = moment(ipData.datetime).format('HH:mm:ss');
+          // const currentTime = moment(ipData.datetime).format('YYYY-MM-DD HH:mm:ss');
+          
+          if (isMountedRef.current) {
+            setIpAddress(ipData.client_ip);
+            setCurrentTime(currentTime);
+            let td = {
+              timeZone: {
+                abbrev: ipData.abbreviation,
+                full: ipData?.timezone.replace(/_/g, " "), // replace _ w/ spaces
+              },
+              dayOfYear: ipData.day_of_year,
+              dayOfWeek: ipData.day_of_week,
+              weekNumber: ipData.week_number,
+            };
+            setTimeDetails(td);
+            // console.log(JSON.stringify(td, null, 2))
+          }
         }
       } 
       catch (error) {
@@ -94,7 +97,8 @@ const ClockScreen = () => {
       try {
         // fetch location data
         const locationResponse = await axios.get(`http://ip-api.com/json/${ipAddress}`);
-        const locationData = locationResponse.data;
+        // const locationResponse = null;
+        const locationData = locationResponse?.data;
         // console.log(locationData);
 
         const location = `${locationData.city}, ${locationData.region}`;
@@ -119,7 +123,7 @@ const ClockScreen = () => {
       <Header />
       <View style={{gap: 40}}>
         <MainInfo 
-          currentTime={currentTime}
+          currentTime={currentTime || timeErrMsg}
           timeZoneAbbrev={timeDetails?.timeZone?.abbrev}
           location={location}
         />
