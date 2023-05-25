@@ -6,29 +6,25 @@ import Text from 'components/Text';
 
 import useIsMountedRef from 'hooks/useIsMountedRef';
 
-const Header = ({style, ...rest}) => {
+const Header = ({ style, ...rest }) => {
   const [quoteText, setQuoteText] = useState(null);
   const [quoteAuthor, setQuoteAuthor] = useState(null);
 
   const isMountedRef = useIsMountedRef();
 
-  const fetchQuoteData = useCallback(async () => { // in useCallback so I can use the function in multiple other places
-    // const fetchQuoteData = async () => {
-      try {
-        const response = await axios.get('https://api.quotable.io/random');
-        const quoteData = response.data;
-        console.log(quoteData);
+  const fetchQuoteData = useCallback(async () => {
+    try {
+      const response = await axios.get('https://api.quotable.io/random');
+      const quoteData = response.data;
+      console.log(quoteData);
 
-        if (isMountedRef.current) {
-          setQuoteText(quoteData.content);
-          setQuoteAuthor(quoteData.author);
-        }
+      if (isMountedRef.current) {
+        setQuoteText(quoteData.content);
+        setQuoteAuthor(quoteData.author);
       }
-      catch (error) {
-        console.log('error fetching quote data', error);
-      }
-    // };
-    // fetchQuoteData();
+    } catch (error) {
+      console.log('error fetching quote data', error);
+    }
   }, []);
 
   useEffect(() => {
@@ -42,7 +38,7 @@ const Header = ({style, ...rest}) => {
         <Text style={styles.quoteAuthor}>{quoteAuthor}</Text>
       </View>
       <View style={styles.btnCol}>
-        <Pressable onClick={fetchQuoteData}>
+        <Pressable onPress={fetchQuoteData}>
           {/* SVG: icon refresh */}
           <Text>Placeholder</Text>
         </Pressable>
@@ -53,14 +49,13 @@ const Header = ({style, ...rest}) => {
 
 const styles = StyleSheet.create({
   container: {
-    // width: '100%', // for some reason extending beyond 100% of screen width
-    // width: 80,
     flexDirection: 'row',
     // alignItems: 'flex-start',
-    alignItems: 'space-between',
+  },
+  quoteCol: {
+    flex: 1, // Take up remaining space in the row
   },
   quoteText: {
-    // width: '80%',
     fontSize: 12,
     fontWeight: '400',
     textAlign: 'left',
@@ -72,7 +67,8 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   btnCol: {
-    width: '20%',
+    width: 50, // Set a fixed width for the btnCol
+    marginLeft: 15, // Add spacing between quoteCol and btnCol
   },
 });
 
