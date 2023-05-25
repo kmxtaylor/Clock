@@ -57,9 +57,11 @@ const MainInfo = ({currentTime, timeZoneAbbrev, location, style, ...rest}) => {
           )}
         </View>
       </View>
-      <View style={styles.locationRow}>
-        <Text style={styles.location}>in {location}</Text>
-      </View>
+      { location && (
+        <View style={styles.locationRow}>
+          <Text style={styles.location}>in {location}</Text>
+        </View>
+      )}
     </View>
   );
 };
