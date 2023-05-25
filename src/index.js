@@ -47,9 +47,10 @@ const App = () => {
         <ImageBackground
           // source={require('/../assets/images/bg-image-daytime.jpg')}
           source={require('/../assets/images/bg-image-nighttime.jpg')}
-          style={[styles.paddingContainer, styles.bgImage]}
+          style={styles.paddingContainer}
           resizeMode='cover'
         >
+          <View style={styles.overlay} />
           <ClockScreen />
         </ImageBackground>
       </SafeAreaView>
@@ -70,8 +71,9 @@ const styles = StyleSheet.create({
 
     // backgroundColor:'black',
   },
-  bgImage: {
-    // opacity: 0.9,
+  overlay: { // overlay to slightly darken background image
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.25)', // (0.5 = 50% transparency)
   },
 });
 
