@@ -3,6 +3,7 @@ import { StyleSheet, View, Pressable } from 'react-native';
 import axios from 'axios';
 
 import Text from 'components/Text';
+import IconRefresh from 'components/svgs/IconRefresh';
 
 import useIsMountedRef from 'hooks/useIsMountedRef';
 
@@ -13,10 +14,11 @@ const Header = ({ style, ...rest }) => {
   const isMountedRef = useIsMountedRef();
 
   const fetchQuoteData = useCallback(async () => {
+    // console.log();
     try {
       const response = await axios.get('https://api.quotable.io/random');
       const quoteData = response.data;
-      // console.log(quoteData);
+      console.log(quoteData);
 
       if (isMountedRef.current) {
         setQuoteText(quoteData.content);
@@ -37,12 +39,12 @@ const Header = ({ style, ...rest }) => {
         <Text style={styles.quoteText}>"{quoteText}"</Text>
         <Text style={styles.quoteAuthor}>{quoteAuthor}</Text>
       </View>
-      <View style={styles.btnCol}>
-        <Pressable onPress={fetchQuoteData}>
-          {/* SVG: icon refresh */}
-          <Text>Placeholder</Text>
+      {/* <View style={styles.btnCol}> */}
+        <Pressable style={[styles.btn]} onPress={fetchQuoteData}>
+          <IconRefresh />
+          {/* <Text>Placeholder</Text> */}
         </Pressable>
-      </View>
+      {/* </View> */}
     </View>
   );
 };
@@ -66,9 +68,11 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     textAlign: 'left',
   },
-  btnCol: {
+  btn: {
     width: 50, // Set a fixed width for the btnCol
     marginLeft: 15, // Add spacing between quoteCol and btnCol
+    alignItems: 'center',
+    // justifyContent: 'center',
   },
 });
 
