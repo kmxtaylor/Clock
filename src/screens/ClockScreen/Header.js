@@ -16,7 +16,7 @@ const Header = ({ style, ...rest }) => {
     try {
       const response = await axios.get('https://api.quotable.io/random');
       const quoteData = response.data;
-      console.log(quoteData);
+      // console.log(quoteData);
 
       if (isMountedRef.current) {
         setQuoteText(quoteData.content);

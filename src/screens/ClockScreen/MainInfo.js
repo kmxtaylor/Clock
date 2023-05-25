@@ -15,7 +15,11 @@ const MainInfo = ({currentTime, timeZoneAbbrev, location, style, ...rest}) => {
   // ...
 
   useEffect(() => {
-    // console.log(currentTime);
+    if (currentTime === null) {
+      return;
+    }
+
+    console.log(`currentTime: ${currentTime}`);
 
     let ampm = moment(currentTime).format('A');
     // console.log(`ampm: ${ampm}`)
@@ -33,7 +37,7 @@ const MainInfo = ({currentTime, timeZoneAbbrev, location, style, ...rest}) => {
       tc = 'evening';
     }
     else {
-      console.log('something went wrong while calculating time category');
+      console.log('something went wrong while calculating time category for', hr);
     }
     setTimeCategory(tc);
     // console.log(`hr: ${hr}; tc: ${tc}`)
@@ -73,6 +77,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '400',
     textTransform: 'uppercase',
+    letterSpacing: 2,
   },
   clockRow: {
     flexDirection: 'row',
@@ -97,6 +102,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     textTransform: 'uppercase',
+    letterSpacing: 2,
   },
 });
 
