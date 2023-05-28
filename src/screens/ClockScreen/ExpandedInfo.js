@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import moment from 'moment';
 
 import Text from 'components/Text';
+import PaddingContainer from 'layouts/PaddingContainer';
 
 // import useIsMountedRef from 'hooks/useIsMountedRef';
 
@@ -52,13 +53,15 @@ const ExpandedInfo = ({timeDetails = null, style, ...rest}) => {
 
   return (
     <View style={[styles.container, style]} {...rest}>
-      { renderInfoRows(timeDetails) }
-      {/* { displayDetails.map((label) => (
-        <View style={styles.row}>
-          <Text style={styles.leftColText}>{label}</Text>
-          <Text style={styles.rightColText}>{}</Text>
-        </View>
-      )) } */}
+      <PaddingContainer>
+        { renderInfoRows(timeDetails) }
+        {/* { displayDetails.map((label) => (
+          <View style={styles.row}>
+            <Text style={styles.leftColText}>{label}</Text>
+            <Text style={styles.rightColText}>{}</Text>
+          </View>
+        )) } */}
+      </PaddingContainer>
     </View>
   );
 };

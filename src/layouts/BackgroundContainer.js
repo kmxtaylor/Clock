@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
-import { ImageBackground, StyleSheet } from 'react-native';
+import { useEffect, useState } from 'react';
+import { StyleSheet, ImageBackground, View } from 'react-native';
 import { useMode } from 'hooks/useMode';
-
 
 const BackgroundContainer = ({ children }) => {
   const [bgImg, setBgImg] = useState(null);
@@ -20,25 +19,30 @@ const BackgroundContainer = ({ children }) => {
   return (
     <ImageBackground
       source={bgImg}
-      // source={require(getBgImg)}
-      // source={bgImg}
-      // source={require('/../assets/images/bg-image-nighttime.jpg')}
-      style={styles.paddingContainer}
       resizeMode='cover'
+      style={styles.container}
     >
+      <View style={styles.overlay} />
       {children}
     </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  paddingContainer: {
+  container: {
     flex: 1,
-    padding: 20,
-    // paddingHorizontal: 15,
-    // paddingVertical: 20,
-    justifyContent: 'space-between',
   },
+  overlay: { // overlay to slightly darken background image
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.25)', // (0.5 = 50% transparency)
+  },
+  // paddingContainer: {
+  //   flex: 1,
+  //   padding: 20,
+  //   // paddingHorizontal: 15,
+  //   // paddingVertical: 20,
+  //   justifyContent: 'space-between',
+  // },
 });
 
 export default BackgroundContainer;

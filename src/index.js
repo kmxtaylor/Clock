@@ -41,36 +41,31 @@ const App = () => {
   return (
     <ModeProvider>
       {/* all mode management must happen inside mode provider */}
-      <StatusBar barStyle='light-content' />
+      {/* <StatusBar barStyle='light-content' />
       <SafeAreaView
-        style={styles.container}
+        style={{flex: 1}}
         onLayout={onLayoutRootView}
         testID='app-screen'
-      >
-          <BackgroundContainer>
-            <View style={styles.overlay} />
-            <ClockScreen />
-          </BackgroundContainer>
-      </SafeAreaView>
+      > */}
+        {/* <BackgroundContainer> */}
+          <ClockScreen onLayout={onLayoutRootView} />
+        {/* </BackgroundContainer> */}
+      {/* </SafeAreaView> */}
     </ModeProvider>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  // paddingContainer: {
-  //   flex: 1,
-  //   padding: 20,
-  //   // paddingHorizontal: 15,
-  //   // paddingVertical: 20,
-  //   justifyContent: 'space-between',
-  // },
-  overlay: { // overlay to slightly darken background image
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.25)', // (0.5 = 50% transparency)
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//   },
+//   // paddingContainer: {
+//   //   flex: 1,
+//   //   padding: 20,
+//   //   // paddingHorizontal: 15,
+//   //   // paddingVertical: 20,
+//   //   justifyContent: 'space-between',
+//   // },
+// });
 
 export default App;

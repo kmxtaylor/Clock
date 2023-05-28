@@ -11,6 +11,8 @@ import ExpandedInfo from './ExpandedInfo';
 
 import { useMode } from 'hooks/useMode';
 import useIsMountedRef from 'hooks/useIsMountedRef';
+import Layout from 'layouts/Main';
+import PaddingContainer from 'layouts/PaddingContainer';
 
 const ClockScreen = () => {
   const [ipAddress, setIpAddress] = useState(null);
@@ -139,43 +141,38 @@ const ClockScreen = () => {
   }, [currentTime]);
 
   return (
-    <>
-    {/* <View style={styles.container}> */}
-      {/* <Text style={styles.text}>{currentTime || timeErrMsg}</Text>
-      <Text style={styles.text}>{location}</Text> */}
-    {/* </View> */}
-      <Header />
-      { timeErrMsg ? (
-        <Text style={styles.timeErrMsg}>{timeErrMsg}</Text>
-      ) : (
-        <View
-          style={{gap: 40}}
-        >
-          <MainInfo 
-            // style={styles.mainInfo}
-            currentTime={currentTime}
-            timeErrMsg={timeErrMsg}
-            timeZoneAbbrev={timeDetails?.timeZone?.abbrev}
-            location={location}
-          />
-          <ButtonMoreLess
-            isShowingMore={isShowingMore}
-            setIsShowingMore={setIsShowingMore}
-          />
-        </View>
+    <Layout testID='app-screen'>
+      {/* Main content */}
+      <PaddingContainer>
+        <Header />
+        { timeErrMsg ? (
+          <Text style={styles.timeErrMsg}>{timeErrMsg}</Text>
+        ) : (
+          <View
+            style={{gap: 40}}
+          >
+            <MainInfo 
+              currentTime={currentTime}
+              timeErrMsg={timeErrMsg}
+              timeZoneAbbrev={timeDetails?.timeZone?.abbrev}
+              location={location}
+            />
+            <ButtonMoreLess
+              isShowingMore={isShowingMore}
+              setIsShowingMore={setIsShowingMore}
+            />
+          </View>
+        )}
+      </PaddingContainer>
+      {/* Pop up content */}
+      { isShowingMore && (
+        <ExpandedInfo timeDetails={timeDetails} />
       )}
-      <ExpandedInfo timeDetails={timeDetails} />
-    </>
+    </Layout>
   );
 };
 
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   // backgroundColor:'black',
-  // },
   text: {
     fontSize: 24,
   },
@@ -185,9 +182,6 @@ const styles = StyleSheet.create({
     color: 'red',
     marginBottom: '100%', // centers timeErrMsg w/o changing item alignment
   },
-  // mainInfo: {
-  //   margin: 20,
-  // },
 });
 
 export default ClockScreen;

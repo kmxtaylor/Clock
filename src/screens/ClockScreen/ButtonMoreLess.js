@@ -27,16 +27,16 @@ const ButtonMoreLess = ({ isShowingMore, setIsShowingMore, style, ...rest }) => 
       <Pressable
         style={[styles.btn, style]}
         onPress={() => {
-          // setMode(prevMode => {
-          //   if (prevMode === 'day') {
-          //     console.log(`setting mode: night`);
-          //     return 'night';
-          //   }
-          //   else {
-          //     console.log(`setting mode: day`);
-          //     return 'day';
-          //   }
-          // });
+          setMode(prevMode => {
+            if (prevMode === 'day') {
+              console.log(`setting mode: night`);
+              return 'night';
+            }
+            else {
+              console.log(`setting mode: day`);
+              return 'day';
+            }
+          });
           setIsShowingMore(prevIsShowingMore => {
             console.log(`setting isShowingMore: ${!prevIsShowingMore}`);
             return !prevIsShowingMore;
@@ -58,8 +58,10 @@ const ButtonMoreLess = ({ isShowingMore, setIsShowingMore, style, ...rest }) => 
       <Pressable
         style={[styles.btn, styles.btnPadded, style]}
         onPress={() => {
-          console.log(`setting isShowingMore: ${!isShowingMore}`);
-          setIsShowingMore(!isShowingMore);
+          setIsShowingMore(prevIsShowingMore => {
+            console.log(`setting isShowingMore: ${!prevIsShowingMore}`);
+            return !prevIsShowingMore;
+          });
         }}
         {...rest}
       >
