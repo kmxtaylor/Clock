@@ -12,7 +12,6 @@ const ButtonMoreLess = ({ isShowingMore, setIsShowingMore, style, ...rest }) => 
     return (
       <Pressable
         style={[styles.btn, style]}
-        testID='button-more-less'
         onPress={() => {
           // setMode(prevMode => {
           //   if (prevMode === 'day') {
@@ -42,7 +41,6 @@ const ButtonMoreLess = ({ isShowingMore, setIsShowingMore, style, ...rest }) => 
     return (
       <Pressable
         style={[styles.btn, styles.btnPadded, style]}
-        testID='button-more-less'
         onPress={() => (
           setIsShowingMore(prevIsShowingMore => !prevIsShowingMore)
         )}

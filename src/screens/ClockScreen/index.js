@@ -166,7 +166,7 @@ const ClockScreen = () => {
           <ButtonMoreLess
             isShowingMore={isShowingMore}
             setIsShowingMore={setIsShowingMore}
-            testID='button-more-less'
+            testID='btn-more-less'
           />
         </View>
       );
