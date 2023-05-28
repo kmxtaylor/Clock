@@ -78,19 +78,19 @@ const ClockScreen = () => {
 
     fetchTimeData();
       
-    // const msInMin = 60000;
+    const msInMin = 60000;
     // const msIn3Sec = 3000;
-    const msInSec = 1000;
-    const intervalMS = msInSec;
+    // const msInSec = 1000;
+    const intervalMS = msInMin;
     let intervalId = null;
 
     // uncomment this only when needed (avoid getting blocked by API again)
-    // if (intervalMS >= 1000) { // sets hard limit to avoid over-querying API
-    //   intervalId = setInterval( // exec on an interval
-    //     fetchTimeData,
-    //     intervalMS,
-    //   );
-    // }
+    if (intervalMS >= 1000) { // sets hard limit to avoid over-querying API
+      intervalId = setInterval( // exec on an interval
+        fetchTimeData,
+        intervalMS,
+      );
+    }
 
     // clear interval when component unmounts
     return () => clearInterval(intervalId);
