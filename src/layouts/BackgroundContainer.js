@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, ImageBackground, View } from 'react-native';
 import { useMode } from 'hooks/useMode';
 
-const BackgroundContainer = ({ children }) => {
+const BackgroundContainer = ({ children, ...rest }) => {
   const [bgImg, setBgImg] = useState(null);
 
   const { mode } = useMode();
@@ -26,6 +26,7 @@ const BackgroundContainer = ({ children }) => {
       source={bgImg}
       resizeMode='cover'
       style={styles.container}
+      {...rest}
     >
       <View style={styles.overlay} />
       {children}

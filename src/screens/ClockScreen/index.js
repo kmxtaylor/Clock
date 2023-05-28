@@ -133,29 +133,52 @@ const ClockScreen = () => {
     }
   }, [currentTime]);
 
+  const MainContent = ({testID, ...props}) => {
+    // console.log(testID)
+    if (timeErrMsg) {
+      return (
+        <Text
+          style={styles.timeErrMsg}
+          // testID={testID}
+          {...props}
+        >{timeErrMsg}</Text>
+      );
+    }
+    else {
+      if (!currentTime) {
+        return null;
+      }
+      return (
+        <View
+          style={{gap: 40}}
+          // testID={testID}
+          {...props}
+        >
+          <MainInfo 
+            currentTime={currentTime}
+            timeErrMsg={timeErrMsg}
+            timeZoneAbbrev={timeDetails?.timeZone?.abbrev}
+            location={location}
+            testID='main-info'
+          />
+          <ButtonMoreLess
+            isShowingMore={isShowingMore}
+            setIsShowingMore={setIsShowingMore}
+            testID='button-more-less'
+          />
+        </View>
+      );
+    }
+  };
+    
+
   return (
-    <CustomBackground testID='app-screen'>
-      {/* Main content */}
+    <CustomBackground testID='clock-screen'>
       <PaddingContainer>
         <Header />
-        { timeErrMsg ? (
-          <Text style={styles.timeErrMsg}>{timeErrMsg}</Text>
-        ) : (
-          <View
-            style={{gap: 40}}
-          >
-            <MainInfo 
-              currentTime={currentTime}
-              timeErrMsg={timeErrMsg}
-              timeZoneAbbrev={timeDetails?.timeZone?.abbrev}
-              location={location}
-            />
-            <ButtonMoreLess
-              isShowingMore={isShowingMore}
-              setIsShowingMore={setIsShowingMore}
-            />
-          </View>
-        )}
+        <MainContent
+          // testID='main-content'
+        />
       </PaddingContainer>
       {/* Pop up content */}
       { isShowingMore && (

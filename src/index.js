@@ -8,10 +8,9 @@ import {
 } from '@expo-google-fonts/roboto';
 import * as SplashScreen from 'expo-splash-screen';
 
-import ClockScreen from 'screens/ClockScreen';
 import { ModeProvider } from 'contexts/Mode';
-import Main from './layouts/Main';
-import BackgroundContainer from 'layouts/BackgroundContainer';
+import ClockScreen from 'screens/ClockScreen';
+import Main from 'layouts/Main';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -34,7 +33,9 @@ const App = () => {
 
   return (
     <ModeProvider>
-      <Main onLayout={onLayoutRootView}>
+      <Main
+        onLayout={onLayoutRootView}
+      >
         <ClockScreen />
       </Main>
     </ModeProvider>

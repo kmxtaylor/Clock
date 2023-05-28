@@ -50,7 +50,7 @@ const MainInfo = ({
     <View style={[styles.container, style]} {...rest}>
       <Greeting currentTime={currentTime} />
       <View style={styles.clockRow}>
-        <Text style={styles.time}>
+        <Text style={styles.time} testID='time'>
           {moment(currentTime).format('hh:mm')}
           {/* {moment(currentTime).format('hh:mm:ss')} */}
         </Text>
