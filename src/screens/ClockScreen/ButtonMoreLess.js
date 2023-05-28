@@ -3,45 +3,15 @@ import { StyleSheet, Pressable, View } from 'react-native';
 import Text from 'components/Text';
 import IconArrowUp from 'components/svgs/IconArrowUp';
 
-import { useMode } from 'hooks/useMode'; // temp, for testing
-
-// const IconArrow = ({ isShowingMore }) => {
-//   if (isShowingMore) {
-//     return (
-//       <IconArrowUp /> // arrow up
-//     );
-//   }
-//   else {
-//     return (
-//       <IconArrowUp style={{transform: [{ rotate: '180deg' }]}} /> // arrow down
-//     );
-//   }
-// };
-
-// expansion should probably be handled in ClockScreen b/c affects ExpandedInfo
 const ButtonMoreLess = ({ isShowingMore, setIsShowingMore, style, ...rest }) => {
-  const { mode, setMode } = useMode(); // temp, for testing
-
   if (isShowingMore) {
+    // Less btn
     return (
       <Pressable
         style={[styles.btn, style]}
-        onPress={() => {
-          setMode(prevMode => {
-            if (prevMode === 'day') {
-              console.log(`setting mode: night`);
-              return 'night';
-            }
-            else {
-              console.log(`setting mode: day`);
-              return 'day';
-            }
-          });
-          setIsShowingMore(prevIsShowingMore => {
-            console.log(`setting isShowingMore: ${!prevIsShowingMore}`);
-            return !prevIsShowingMore;
-          });
-        }}
+        onPress={() => (
+          setIsShowingMore(prevIsShowingMore => !prevIsShowingMore)
+        )}
         {...rest}
       >
         <View style={[styles.btn, styles.btnPadded, styles.btnBordered]}>
@@ -54,15 +24,13 @@ const ButtonMoreLess = ({ isShowingMore, setIsShowingMore, style, ...rest }) => 
     );
   }
   else {
+    // More btn
     return (
       <Pressable
         style={[styles.btn, styles.btnPadded, style]}
-        onPress={() => {
-          setIsShowingMore(prevIsShowingMore => {
-            console.log(`setting isShowingMore: ${!prevIsShowingMore}`);
-            return !prevIsShowingMore;
-          });
-        }}
+        onPress={() => (
+          setIsShowingMore(prevIsShowingMore => !prevIsShowingMore)
+        )}
         {...rest}
       >
         <Text style={styles.text}>
@@ -72,21 +40,6 @@ const ButtonMoreLess = ({ isShowingMore, setIsShowingMore, style, ...rest }) => 
       </Pressable>
     );
   }
-  // return (
-  //   <Pressable
-  //     style={[styles.btn, style]}
-  //     onPress={() => {
-  //       console.log(`setting isShowingMore: ${!isShowingMore}`);
-  //       setIsShowingMore(!isShowingMore);
-  //     }}
-  //     {...rest}
-  //   >
-  //     <Text style={styles.text}>
-  //       {isShowingMore ? 'Less' : 'More'}
-  //     </Text>
-  //     <IconArrow isShowingMore={isShowingMore} />
-  //   </Pressable>
-  // );
 }
 
 const styles = StyleSheet.create({
@@ -98,20 +51,11 @@ const styles = StyleSheet.create({
     width: 140,
     backgroundColor: 'white',
     borderRadius: 25,
-    // padding: 5,
-
-    // justifyContent: 'center',
-    // alignItems: 'flex-start',
-    // paddingVertical: 10,
-    // textAlign: 'left',
-    // textAlignVertical: 'center',
   },
   btnPadded: {
     padding: 5,
   },
   btnBordered: {
-    // padding: 5,
-
     // show border when expanded:
     borderWidth: 2,
     borderStyle: 'dashed',

@@ -1,20 +1,9 @@
-import { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-import moment from 'moment';
 
 import Text from 'components/Text';
 import PaddingContainer from 'layouts/PaddingContainer';
 
-// import useIsMountedRef from 'hooks/useIsMountedRef';
-
 const renderInfoRows = (timeDetails) => {
-  // const displayDetails = [
-  //   { 'Current Timezone': timeDetails?.timeZone.full },
-  //   { 'Day of the Year': timeDetails?.dayOfYear },
-  //   { 'Day of the Week': timeDetails?.dayOfWeek },
-  //   {'Week Number': timeDetails?.weekNumber },
-  // ];
-
   const displayDetails = {
     'Current Timezone': timeDetails?.timeZone.full,
     'Day of the Year': timeDetails?.dayOfYear,
@@ -37,30 +26,14 @@ const renderInfoRows = (timeDetails) => {
 };
 
 const ExpandedInfo = ({timeDetails = null, style, ...rest}) => {
-  // console.log(`timeDetails: ${JSON.stringify(timeDetails, null, 2)}`);
-
   if (!timeDetails) {
-    // console.log('no time details -- hiding expanded info');
     return null;
   }
-
-  const displayDetails = [
-    { 'Current Timezone': timeDetails?.timeZone.full },
-    { 'Day of the Year': timeDetails?.dayOfYear },
-    { 'Day of the Week': timeDetails?.dayOfWeek },
-    {'Week Number': timeDetails?.weekNumber },
-  ];
 
   return (
     <View style={[styles.container, style]} {...rest}>
       <PaddingContainer>
         { renderInfoRows(timeDetails) }
-        {/* { displayDetails.map((label) => (
-          <View style={styles.row}>
-            <Text style={styles.leftColText}>{label}</Text>
-            <Text style={styles.rightColText}>{}</Text>
-          </View>
-        )) } */}
       </PaddingContainer>
     </View>
   );
@@ -87,8 +60,6 @@ const styles = StyleSheet.create({
   rightColText: {
     fontSize: 18,
     fontWeight: '700',
-    // textTransform: 'uppercase',
-    // letterSpacing: 2,
     textAlignVertical: 'center',
   },
 });
