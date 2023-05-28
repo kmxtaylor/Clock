@@ -45,31 +45,25 @@ const ClockScreen = () => {
         const ipResponse = await axios.get('http://worldtimeapi.org/api/ip');
         // const ipResponse = null; // for testing only
         const ipData = ipResponse.data;
-        // if (ipData) {
-          // console.log(`ipData: ${JSON.stringify(ipData, null, 2)}`);
-          // const currentTime = moment(ipData.datetime).format('HH:mm:ss');
-          const currentTime = moment(ipData.datetime).format('YYYY-MM-DD HH:mm:ss');
-          
-          if (isMountedRef.current) {
-            setIpAddress(ipData.client_ip);
-            setCurrentTime(currentTime);
-            let td = {
-              timeZone: {
-                abbrev: ipData.abbreviation,
-                full: ipData?.timezone.replace(/_/g, " "), // replace _ w/ spaces
-              },
-              dayOfYear: ipData.day_of_year,
-              dayOfWeek: ipData.day_of_week,
-              weekNumber: ipData.week_number,
-            };
-            setTimeDetails(td);
-            // console.log(JSON.stringify(td, null, 2))
-            setTimeErrMsg(null);
-          }
-        // }
-        // else {
-        //   setTimeErrMsg("Can't get time");
-        // }
+        // console.log(`ipData: ${JSON.stringify(ipData, null, 2)}`);
+        const currentTime = moment(ipData.datetime).format('YYYY-MM-DD HH:mm:ss');
+        
+        if (isMountedRef.current) {
+          setIpAddress(ipData.client_ip);
+          setCurrentTime(currentTime);
+          let td = {
+            timeZone: {
+              abbrev: ipData.abbreviation,
+              full: ipData?.timezone.replace(/_/g, " "), // replace _ w/ spaces
+            },
+            dayOfYear: ipData.day_of_year,
+            dayOfWeek: ipData.day_of_week,
+            weekNumber: ipData.week_number,
+          };
+          setTimeDetails(td);
+          // console.log(JSON.stringify(td, null, 2))
+          setTimeErrMsg(null);
+        }
       }
       catch (error) {
         console.log(
@@ -105,7 +99,6 @@ const ClockScreen = () => {
   useEffect(() => {
     const fetchLocationData = async () => {
       try {
-        // fetch location data
         const locationResponse = await axios.get(`http://ip-api.com/json/${ipAddress}`);
         // const locationResponse = null;  // for testing only
         const locationData = locationResponse?.data;

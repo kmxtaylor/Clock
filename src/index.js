@@ -1,11 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
-import {
-  StyleSheet,
-  SafeAreaView,
-  StatusBar,
-  View,
-  ImageBackground
-} from 'react-native';
+import { useCallback } from 'react';
 
 import {
   useFonts,
@@ -41,26 +34,11 @@ const App = () => {
 
   return (
     <ModeProvider>
-      <Main
-        onLayout={onLayoutRootView}
-      >
+      <Main onLayout={onLayoutRootView}>
         <ClockScreen />
       </Main>
     </ModeProvider>
   );
 };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//   },
-//   // paddingContainer: {
-//   //   flex: 1,
-//   //   padding: 20,
-//   //   // paddingHorizontal: 15,
-//   //   // paddingVertical: 20,
-//   //   justifyContent: 'space-between',
-//   // },
-// });
 
 export default App;

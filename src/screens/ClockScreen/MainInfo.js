@@ -1,4 +1,3 @@
-// import { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import moment from 'moment';
 
@@ -7,13 +6,11 @@ import IconSun from 'components/svgs/IconSun';
 import IconMoon from 'components/svgs/IconMoon';
 
 import { useMode } from 'hooks/useMode';
-// import useIsMountedRef from 'hooks/useIsMountedRef';
 
 const MainInfo = ({
   currentTime = null, timeErrMsg = null, timeZoneAbbrev = null, location = null, style, ...rest
 }) => {
   const { mode } = useMode();
-  // const isMountedRef = useIsMountedRef();
 
   const Greeting = ({ currentTime }) => {
     // console.log(`currentTime: ${currentTime}, location: ${location}`);
@@ -53,14 +50,9 @@ const MainInfo = ({
     <View style={[styles.container, style]} {...rest}>
       <Greeting currentTime={currentTime} />
       <View style={styles.clockRow}>
-        {/* { currentTime ? ( */}
-          <Text style={styles.time}>
-            {moment(currentTime).format('HH:mm:ss')}
-          </Text>
-        {/* )
-        : (
-          <Text style={styles.timeErrMsg}>{timeErrMsg}</Text>
-        )} */}
+        <Text style={styles.time}>
+          {moment(currentTime).format('HH:mm:ss')}
+        </Text>
         <View style={styles.abbrevsCol}>
           { currentTime && (
             <Text style={styles.amOrPm}>{moment(currentTime).format('A')}</Text>
@@ -103,13 +95,9 @@ const styles = StyleSheet.create({
   abbrevsCol: {
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
-    // textAlign: 'left',
   },
   locationRow: {
-    // flexDirection: 'row',
-    // justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    // textAlign: 'left',
   },
   location: {
     fontSize: 16,

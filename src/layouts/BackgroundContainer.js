@@ -36,13 +36,6 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0, 0, 0, 0.25)', // (0.5 = 50% transparency)
   },
-  // paddingContainer: {
-  //   flex: 1,
-  //   padding: 20,
-  //   // paddingHorizontal: 15,
-  //   // paddingVertical: 20,
-  //   justifyContent: 'space-between',
-  // },
 });
 
 export default BackgroundContainer;
