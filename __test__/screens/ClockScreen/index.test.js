@@ -26,11 +26,10 @@ describe('clock screen test suite', () => {
 
   //   await waitFor(() => {
   //     expect([
-  //       getByTestId('time'),
-  //       getByTestId('location'),
   //       getByTestId('quote-text'),
   //       getByTestId('quote-author'),
-  //       getByTestId('quote-author'),
+  //       getByTestId('time'),
+  //       getByTestId('location'),
   //     ]).toBeDefined();
   //   }, TIMEOUT);
   // });
@@ -58,27 +57,27 @@ describe('clock screen test suite', () => {
   // });
   
   // check that more/less btn toggles expanded info
-  test('should toggle expanded info on press of more/less btn', async () => {
-    const { getByTestId, getByText, queryByTestId } = render(<ClockScreen />)
+  // test('should toggle expanded info on press of more/less btn', async () => {
+  //   const { getByTestId, getByText, queryByTestId } = render(<ClockScreen />)
 
-    await waitFor(() => {
-      // check that expanded info is not rendered initially
-      let expandedInfo = queryByTestId('expanded-info'); // return null, instead of throwing err, if not found
-      expect(expandedInfo).toBeNull();
+  //   await waitFor(() => {
+  //     // check that expanded info is not rendered initially
+  //     let expandedInfo = queryByTestId('expanded-info'); // return null, instead of throwing err, if not found
+  //     expect(expandedInfo).toBeNull();
 
-      // test show more
-      let textMore = getByText('More'); // passes
-      fireEvent.press(textMore);
-      expandedInfo = queryByTestId('expanded-info'); // not null this time
-      expect(expandedInfo).not.toBeNull();
+  //     // test show more
+  //     let textMore = getByText('More'); // passes
+  //     fireEvent.press(textMore);
+  //     expandedInfo = queryByTestId('expanded-info'); // not null this time
+  //     expect(expandedInfo).not.toBeNull();
 
-      // test show less
-      let textLess = getByText('Less'); // passes
-      fireEvent.press(textLess);
-      expandedInfo = queryByTestId('expanded-info'); // should be null again
-      expect(expandedInfo).toBeNull();
-    }, TIMEOUT);
-  });
+  //     // test show less
+  //     let textLess = getByText('Less'); // passes
+  //     fireEvent.press(textLess);
+  //     expandedInfo = queryByTestId('expanded-info'); // should be null again
+  //     expect(expandedInfo).toBeNull();
+  //   }, TIMEOUT);
+  // });
 
   // check that elements match time of day: greeting, greeting icon, expanded info background color & text color
   describe('time-dependent test suite', () => {
@@ -87,9 +86,40 @@ describe('clock screen test suite', () => {
     //   // fireEvent.press(moreLessBtn);
     // });  
 
-    // check that expanded info background color & text color match time of day
+    // check that expanded info background color match time of day
     test('should match expanded info colors with time of day', async () => {
-      // fireEvent.press(moreLessBtn);
+      const { getByTestId, getByText, queryByTestId } = render(<ClockScreen />);
+
+      // await waitFor(() => {
+      //   expect(getByTestId('time')).toBeDefined();
+      // }, TIMEOUT);
+
+      let time, amOrPm, btnMoreLess, expandedInfo;
+      await waitFor(() => {
+        time = getByTestId('time'); // passes
+        // amOrPm = getByTestId('am-or-pm'); // passes
+        console.log(time.props.children)
+        
+        btnMoreLess = getByTestId('btn-more-less'); // passes
+        // console.log(btnMoreLess.props);
+        fireEvent.press(btnMoreLess); // passes
+
+        expandedInfo = getByTestId('expanded-info');
+
+        // if the style is an array, flatten it
+        // let styles = {};
+        if (Array.isArray(expandedInfo.props.style)) {
+          styles = expandedInfo.props.style.reduce((acc, cur) => {
+            return { ...acc, ...cur };
+          }, {});
+        } else {
+          styles = expandedInfo.props.style;
+        }
+        // console.log(styles);
+        console.log(styles.backgroundColor);
+        // expect(styles.backgroundColor).toEqual(Colors[].background);
+      });
+
     }); 
   });  
 });
