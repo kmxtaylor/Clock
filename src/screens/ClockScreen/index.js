@@ -72,7 +72,7 @@ const ClockScreen = () => {
           // JSON.stringify(error, null, 2)
         );
         setTimeDetails(null);
-        setTimeErrMsg("Clock Unavailable");
+        setTimeErrMsg("Clock Unavailable. Check Your Internet Connection.");
       }
     };
 
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     fontSize: 60,
     fontWeight: '700',
     color: 'red',
-    marginBottom: '100%', // centers timeErrMsg w/o changing item alignment
+    marginBottom: '50%', // centers timeErrMsg w/o changing item alignment
   },
 });
 

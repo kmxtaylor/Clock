@@ -8,12 +8,17 @@ const BackgroundContainer = ({ children }) => {
   const { mode } = useMode();
 
   useEffect(() => {
-    let requiredBgImg = require('/../assets/images/bg-image-nighttime.jpg');
-    if (mode === 'day') {
-      requiredBgImg = require('/../assets/images/bg-image-daytime.jpg');
+    if (mode) {
+      let requiredBgImg = null;
+      if (mode === 'day') {
+        requiredBgImg = require('/../assets/images/bg-image-daytime.jpg');
+      }
+      else {
+        requiredBgImg = require('/../assets/images/bg-image-nighttime.jpg')
+      }
+      setBgImg(requiredBgImg);
+      console.log('read new mode', mode);
     }
-    setBgImg(requiredBgImg);
-    console.log('read new mode', mode);
   }, [mode]);
 
   return (
