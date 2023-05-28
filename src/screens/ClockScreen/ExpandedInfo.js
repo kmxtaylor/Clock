@@ -3,7 +3,11 @@ import { StyleSheet, View } from 'react-native';
 import Text from 'components/Text';
 import PaddingContainer from 'layouts/PaddingContainer';
 
+import { useMode } from 'hooks/useMode';
+
 const renderInfoRows = (timeDetails) => {
+  const { colors } = useMode();
+
   const displayDetails = {
     'Current Timezone': timeDetails?.timeZone.full,
     'Day of the Year': timeDetails?.dayOfYear,
@@ -16,8 +20,8 @@ const renderInfoRows = (timeDetails) => {
   for (const [label, val] of Object.entries(displayDetails)) {
     infoRows.push(
       <View key={label} style={styles.row}>
-        <Text style={styles.leftColText}>{label}</Text>
-        <Text style={styles.rightColText}>{val}</Text>
+        <Text style={[{color: colors?.text ?? 'white'}, styles.leftColText]}>{label}</Text>
+        <Text style={[{color: colors?.text ?? 'white'}, styles.rightColText]}>{val}</Text>
       </View>
     );
   }
@@ -26,12 +30,14 @@ const renderInfoRows = (timeDetails) => {
 };
 
 const ExpandedInfo = ({timeDetails = null, style, ...rest}) => {
+  const { colors } = useMode();
+
   if (!timeDetails) {
     return null;
   }
 
   return (
-    <View style={[styles.container, style]} {...rest}>
+    <View style={[{backgroundColor: colors?.background ?? 'black'}, styles.container, style]} {...rest}>
       <PaddingContainer>
         { renderInfoRows(timeDetails) }
       </PaddingContainer>
@@ -41,9 +47,9 @@ const ExpandedInfo = ({timeDetails = null, style, ...rest}) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'black',
-    height: 200,
-    justifyContent: 'space-evenly',
+    height: 220,
+    paddingVertical: 15,
+    justifyContent: 'space-around',
   },
   row: {
     flexDirection: 'row',
@@ -51,10 +57,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   leftColText: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '400',
     textTransform: 'uppercase',
-    letterSpacing: 2,
+    letterSpacing: 1.5,
     textAlignVertical: 'center',
   },
   rightColText: {

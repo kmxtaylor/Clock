@@ -2,16 +2,29 @@ import { StyleSheet, Pressable, View } from 'react-native';
 
 import Text from 'components/Text';
 import IconArrowUp from 'components/svgs/IconArrowUp';
+import { useMode } from 'hooks/useMode'; // temp, for testing
 
 const ButtonMoreLess = ({ isShowingMore, setIsShowingMore, style, ...rest }) => {
+  const { mode, setMode } = useMode(); // temp, for testing
+
   if (isShowingMore) {
     // Less btn
     return (
       <Pressable
         style={[styles.btn, style]}
-        onPress={() => (
+        onPress={() => {
+          setMode(prevMode => {
+            if (prevMode === 'day') {
+              console.log(`setting mode: night`);
+              return 'night';
+            }
+            else {
+              console.log(`setting mode: day`);
+              return 'day';
+            }
+          });
           setIsShowingMore(prevIsShowingMore => !prevIsShowingMore)
-        )}
+        }}
         {...rest}
       >
         <View style={[styles.btn, styles.btnPadded, styles.btnBordered]}>
@@ -59,7 +72,7 @@ const styles = StyleSheet.create({
     // show border when expanded:
     borderWidth: 2,
     borderStyle: 'dashed',
-    borderColor: 'purple',
+    borderColor: 'black',
   },
   text: {
     fontSize: 16,

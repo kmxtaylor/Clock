@@ -3,7 +3,7 @@ import { Text as DefaultText } from 'react-native';
 const Text = ({ style, ...rest }) => {
   let fontFam;
   switch (parseInt(style?.fontWeight)) { // set to accept either str or int
-      case 400:
+    case 400:
       fontFam = 'Roboto_400Regular';
       break;
     case 500:
