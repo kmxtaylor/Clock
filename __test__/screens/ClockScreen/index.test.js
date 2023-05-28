@@ -1,5 +1,7 @@
 
 import { render, waitFor, fireEvent } from '@testing-library/react-native';
+import moment from 'moment';
+
 import ClockScreen from 'screens/ClockScreen';
 import Colors from 'constants/Colors';
 
@@ -94,30 +96,50 @@ describe('clock screen test suite', () => {
       //   expect(getByTestId('time')).toBeDefined();
       // }, TIMEOUT);
 
-      let time, amOrPm, btnMoreLess, expandedInfo;
+      // let time, amOrPm, btnMoreLess, expandedInfo;
       await waitFor(() => {
-        time = getByTestId('time'); // passes
-        // amOrPm = getByTestId('am-or-pm'); // passes
-        console.log(time.props.children)
-        
-        btnMoreLess = getByTestId('btn-more-less'); // passes
-        // console.log(btnMoreLess.props);
-        fireEvent.press(btnMoreLess); // passes
+        // determine correct mode
+        let [ time ] = getByTestId('time').children; // passes
+        let [ amOrPm ] = getByTestId('am-or-pm').children; // passes
+        let timeStr = time + ' ' + amOrPm;
+        // console.log(timeStr)
+        let mode = null;
 
-        expandedInfo = getByTestId('expanded-info');
+        const timeComparable = moment(timeStr, 'hh:mm A');
+        const dayModeStart = moment('05:00 AM', 'hh:mm A');
+        const nightModeStart = moment('06:00 PM', 'hh:mm A');
 
-        // if the style is an array, flatten it
-        // let styles = {};
-        if (Array.isArray(expandedInfo.props.style)) {
-          styles = expandedInfo.props.style.reduce((acc, cur) => {
-            return { ...acc, ...cur };
-          }, {});
-        } else {
-          styles = expandedInfo.props.style;
+        const isDayMode = timeComparable.isSameOrAfter(dayModeStart) && timeComparable.isBefore(nightModeStart);
+
+        if (isDayMode) {
+          mode = 'day';
         }
-        // console.log(styles);
-        console.log(styles.backgroundColor);
-        // expect(styles.backgroundColor).toEqual(Colors[].background);
+        else {
+          mode = 'night';
+        }
+        console.log(timeStr, ' is during ', mode, ' mode');
+
+        
+        // let btnMoreLess = getByTestId('btn-more-less'); // passes
+        // // console.log(btnMoreLess.props);
+        // fireEvent.press(btnMoreLess); // passes
+
+        // let expandedInfo = getByTestId('expanded-info');
+
+
+        // // if the style is an array, flatten it
+        // // let styles = {};
+        // if (Array.isArray(expandedInfo.props.style)) {
+        //   styles = expandedInfo.props.style.reduce((acc, cur) => {
+        //     return { ...acc, ...cur };
+        //   }, {});
+        // } else {
+        //   styles = expandedInfo.props.style;
+        // }
+        // // console.log(styles);
+        // console.log(styles.backgroundColor);
+        // console.log(Colors[mode].background);
+        // // expect(styles.backgroundColor).toEqual(Colors[].background);
       });
 
     }); 
