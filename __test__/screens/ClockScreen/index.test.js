@@ -68,9 +68,9 @@ describe('clock screen test suite', () => {
       expect(expandedInfoNode).toBeNull();
       // console.log(expandedInfoNode);
 
-      moreLessBtn = getByTestId('btn-more-less');  // now passes -- mysteriously
+      // moreLessBtn = getByTestId('btn-more-less');  // now passes -- mysteriously
       // moreLessBtn = queryByTestId('btn-more-less'); // now passes -- mysteriously
-      // moreText = getByText('More'); // passes
+      moreText = getByText('More'); // passes
 
       // text1 = queryByText('Good'); // returns null (but passes)
 
@@ -78,7 +78,7 @@ describe('clock screen test suite', () => {
       // testId1 = getByTestId('main-info'); // passes
     }, TIMEOUT);
     // console.log(moreLessBtn.props); // passes
-    // console.log(moreText.props) // passes
+    // console.log(moreText.props); // passes
     // console.log(text1); // returns null (but passes)
     // // console.log(lessText, text1, text2, text3);
     // console.log(testId1.props.children); /// passes
@@ -87,14 +87,19 @@ describe('clock screen test suite', () => {
     
     await waitFor(() => {
       // test show more
-      fireEvent.press(moreLessBtn);
-      expandedInfoNode = getByTestId('expanded-info'); // found this time
+      // fireEvent.press(moreLessBtn);
+      fireEvent.press(moreText);
+      expandedInfoNode = queryByTestId('expanded-info'); // found this time
       // expect(expandedInfoNode).toBeDefined();
       expect(expandedInfoNode).not.toBeNull();
       // console.log(expandedInfoNode);
 
       // test show less
-
+      // fireEvent.press(moreLessBtn);
+      // expandedInfoNode = queryByTestId('expanded-info'); // found this time
+      // // expect(expandedInfoNode).toBeDefined();
+      // expect(expandedInfoNode).toBeNull();
+      // // console.log(expandedInfoNode);
     }, TIMEOUT);
   });
 
