@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   greetingText: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '400',
     textTransform: 'uppercase',
     letterSpacing: 2,
@@ -86,18 +86,23 @@ const styles = StyleSheet.create({
   },
   clockRow: {
     flexDirection: 'row',
-    textAlign: 'left',
+    alignItems: 'flex-end',
+    // textAlign: 'left',
+    marginTop: 5,
   },
   time: {
-    fontSize: 60,
+    fontSize: 70,
     fontWeight: '700',
   },
   abbrevsCol: {
-    justifyContent: 'flex-end',
+    // justifyContent: 'flex-end',
     alignItems: 'flex-start',
+    marginLeft: 15,
+    paddingBottom: 15,
   },
   locationRow: {
     alignItems: 'flex-start',
+    marginTop: 15,
   },
   location: {
     fontSize: 16,
