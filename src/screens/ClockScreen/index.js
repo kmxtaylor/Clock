@@ -125,11 +125,11 @@ const ClockScreen = () => {
     let hourOfDay = moment(currentTime).format('HH');
     if ((hourOfDay >= 18 || hourOfDay < 5) && mode !== 'night') {
       setMode('night');
-      console.log('just set mode to night');
+      // console.log('just set mode to night');
     }
     else if ((hourOfDay < 18 && hourOfDay >= 5) && mode !== 'day') {
       setMode('day');
-      console.log('just set mode to day');
+      // console.log('just set mode to day');
     }
   }, [currentTime]);
 

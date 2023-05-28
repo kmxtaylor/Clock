@@ -51,7 +51,7 @@ const MainInfo = ({
       <Greeting currentTime={currentTime} />
       <View style={styles.clockRow}>
         <Text style={styles.time}>
-          {moment(currentTime).format('HH:mm:ss')}
+          {moment(currentTime).format('hh:mm:ss')}
         </Text>
         <View style={styles.abbrevsCol}>
           { currentTime && (
