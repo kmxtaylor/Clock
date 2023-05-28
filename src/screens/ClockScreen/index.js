@@ -133,12 +133,14 @@ const ClockScreen = () => {
     }
   }, [currentTime]);
 
-  const MainContent = ({testID, ...props}) => {
+  const MainContent = (props) => {
+    // const { testID } = props;
     // console.log(testID)
     if (timeErrMsg) {
       return (
         <Text
           style={styles.timeErrMsg}
+          testID={'error-message'}
           // testID={testID}
           {...props}
         >{timeErrMsg}</Text>

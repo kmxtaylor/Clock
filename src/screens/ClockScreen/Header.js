@@ -40,12 +40,19 @@ const Header = ({ style, ...rest }) => {
     return (
       <View style={[styles.container, style]} {...rest}>
         <View style={styles.quoteCol}>
-          <Text style={styles.quoteText}>"{quoteText}"</Text>
-          <Text style={styles.quoteAuthor}>{quoteAuthor}</Text>
+          <Text style={styles.quoteText} testID='quote-text'>
+            "{quoteText}"
+          </Text>
+          <Text style={styles.quoteAuthor} testID='quote-author'>
+            {quoteAuthor}
+          </Text>
         </View>
-          <Pressable style={[styles.btn]} onPress={fetchQuoteData}>
+          <Pressable
+            style={styles.btn}
+            onPress={fetchQuoteData}
+            testID='btn-refresh'
+          >
             <IconRefresh />
-            {/* <Text>Placeholder</Text> */}
           </Pressable>
       </View>
     );

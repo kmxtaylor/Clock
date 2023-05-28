@@ -38,8 +38,11 @@ const MainInfo = ({
 
     return (
       <View style={styles.greetingRow}>
-        { mode === 'night' ? <IconMoon /> : <IconSun /> }
-        <Text style={styles.greetingText}>
+        { mode === 'night' ?
+          <IconMoon testID='icon-moon' /> :
+          <IconSun testID='icon-sun' />
+        }
+        <Text style={styles.greetingText} testID='greeting-text'>
           Good {timeCategory}, it's currently
         </Text>
       </View>
@@ -56,16 +59,16 @@ const MainInfo = ({
         </Text>
         <View style={styles.abbrevsCol}>
           { currentTime && (
-            <Text style={styles.amOrPm}>{moment(currentTime).format('A')}</Text>
+            <Text style={styles.amOrPm} testID='am-or-pm'>{moment(currentTime).format('A')}</Text>
           )}
           { timeZoneAbbrev && (
-            <Text style={styles.timeZoneAbbrev}>{timeZoneAbbrev}</Text>
+            <Text style={styles.timeZoneAbbrev} testID='time-zone-abbrev'>{timeZoneAbbrev}</Text>
           )}
         </View>
       </View>
       { location && (
         <View style={styles.locationRow}>
-          <Text style={styles.location}>in {location}</Text>
+          <Text style={styles.location} testID='location'>in {location}</Text>
         </View>
       )}
     </View>
