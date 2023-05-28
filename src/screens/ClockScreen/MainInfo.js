@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   time: {
-    fontSize: 70,
+    fontSize: 80,
     fontWeight: '700',
   },
   abbrevsCol: {
