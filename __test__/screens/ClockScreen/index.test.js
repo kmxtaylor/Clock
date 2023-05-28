@@ -25,24 +25,36 @@ describe('clock screen test suite', () => {
     const { getByTestId } = render(<ClockScreen />)
 
     await waitFor(() => {
-      const quoteText = getByTestId('quote-text');
-      expect(quoteText).toBeDefined();
-
-      const quoteAuthor = getByTestId('quote-author');
-      expect(quoteAuthor).toBeDefined();
-
-      const time = getByTestId('time');
-      expect(time).toBeDefined();
-
-      const location = getByTestId('location');
-      expect(location).toBeDefined();
+      expect([
+        getByTestId('time'),
+        getByTestId('location'),
+        getByTestId('quote-text'),
+        getByTestId('quote-author'),
+      ]).toBeDefined();
     }, TIMEOUT);
   });
 
   // check that quote changes on press refresh btn
-  // test('should change quote on press of refresh btn', async () => {
-  //   // fireEvent.press(refreshBtn);
-  // });
+  test('should change quote on press of refresh btn', async () => {
+    const { getByTestId } = render(<ClockScreen />)
+
+    let quoteNode, refreshBtn;
+    await waitFor(() => {
+      // console.log(getByTestId('quote-text').children);
+      quoteNode = getByTestId('quote-text');
+      refreshBtn = getByTestId('btn-refresh');
+    }, TIMEOUT);
+    let oldQuoteText = quoteNode.children.reduce((acc, cur) => acc + cur);
+    // console.log(oldQuoteText);
+
+    fireEvent.press(refreshBtn);
+
+    await waitFor(() => {
+      let newQuoteText = quoteNode.children.reduce((acc, cur) => acc + cur);
+      // console.log(oldQuoteText, newQuoteText);
+      expect(newQuoteText).not.toEqual(oldQuoteText);
+    }, TIMEOUT);
+  });
   
   // check that more/less btn toggles expanded info
   // test('should toggle expanded info on press of more/less btn', async () => {
