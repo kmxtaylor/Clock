@@ -2,10 +2,10 @@ import { StyleSheet, Pressable, View } from 'react-native';
 
 import Text from 'components/Text';
 import IconArrowUp from 'components/svgs/IconArrowUp';
-import { useMode } from 'hooks/useMode'; // temp, for testing
+// import { useMode } from 'hooks/useMode'; // temp, for testing
 
 const ButtonMoreLess = ({ isShowingMore, setIsShowingMore, style, ...rest }) => {
-  const { mode, setMode } = useMode(); // temp, for testing
+  // const { mode, setMode } = useMode(); // temp, for testing
 
   if (isShowingMore) {
     // Less btn
@@ -13,16 +13,16 @@ const ButtonMoreLess = ({ isShowingMore, setIsShowingMore, style, ...rest }) => 
       <Pressable
         style={[styles.btn, style]}
         onPress={() => {
-          setMode(prevMode => {
-            if (prevMode === 'day') {
-              console.log(`setting mode: night`);
-              return 'night';
-            }
-            else {
-              console.log(`setting mode: day`);
-              return 'day';
-            }
-          });
+          // setMode(prevMode => {
+          //   if (prevMode === 'day') {
+          //     console.log(`setting mode: night`);
+          //     return 'night';
+          //   }
+          //   else {
+          //     console.log(`setting mode: day`);
+          //     return 'day';
+          //   }
+          // });
           setIsShowingMore(prevIsShowingMore => !prevIsShowingMore)
         }}
         {...rest}
