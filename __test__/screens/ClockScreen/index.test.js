@@ -61,45 +61,45 @@ describe('clock screen test suite', () => {
   test('should toggle expanded info on press of more/less btn', async () => {
     const { getByTestId, getByText, queryByTestId, queryByText } = render(<ClockScreen />)
 
-    let expandedInfoNode, moreLessBtn, moreText, lessText;
+    let expandedInfo, btnMoreLess, textMore, textLess;
     let text1, text2, testId1;
     await waitFor(() => {
-      expandedInfoNode = queryByTestId('expanded-info'); // return null, instead of throwing err, if not found
-      expect(expandedInfoNode).toBeNull();
-      // console.log(expandedInfoNode);
+      expandedInfo = queryByTestId('expanded-info'); // return null, instead of throwing err, if not found
+      expect(expandedInfo).toBeNull();
+      // console.log(expandedInfo);
 
-      // moreLessBtn = getByTestId('btn-more-less');  // now passes -- mysteriously
-      // moreLessBtn = queryByTestId('btn-more-less'); // now passes -- mysteriously
-      moreText = getByText('More'); // passes
+      // btnMoreLess = getByTestId('btn-more-less');  // now passes -- mysteriously
+      // btnMoreLess = queryByTestId('btn-more-less'); // now passes -- mysteriously
+      textMore = getByText('More'); // passes
 
       // text1 = queryByText('Good'); // returns null (but passes)
 
       // testId1 = getByTestId('btn-refresh');
       // testId1 = getByTestId('main-info'); // passes
     }, TIMEOUT);
-    // console.log(moreLessBtn.props); // passes
-    // console.log(moreText.props); // passes
+    // console.log(btnMoreLess.props); // passes
+    // console.log(textMore.props); // passes
     // console.log(text1); // returns null (but passes)
-    // // console.log(lessText, text1, text2, text3);
+    // // console.log(textLess, text1, text2, text3);
     // console.log(testId1.props.children); /// passes
 
-    // fireEvent.press(moreLessBtn);
+    // fireEvent.press(btnMoreLess);
     
     await waitFor(() => {
       // test show more
-      // fireEvent.press(moreLessBtn);
-      fireEvent.press(moreText);
-      expandedInfoNode = queryByTestId('expanded-info'); // found this time
-      // expect(expandedInfoNode).toBeDefined();
-      expect(expandedInfoNode).not.toBeNull();
-      // console.log(expandedInfoNode);
+      // fireEvent.press(btnMoreLess);
+      fireEvent.press(textMore);
+      expandedInfo = queryByTestId('expanded-info'); // found this time
+      // expect(expandedInfo).toBeDefined();
+      expect(expandedInfo).not.toBeNull();
+      // console.log(expandedInfo);
 
       // test show less
-      // fireEvent.press(moreLessBtn);
-      // expandedInfoNode = queryByTestId('expanded-info'); // found this time
-      // // expect(expandedInfoNode).toBeDefined();
-      // expect(expandedInfoNode).toBeNull();
-      // // console.log(expandedInfoNode);
+      // fireEvent.press(btnMoreLess);
+      // expandedInfo = queryByTestId('expanded-info'); // found this time
+      // // expect(expandedInfo).toBeDefined();
+      // expect(expandedInfo).toBeNull();
+      // // console.log(expandedInfo);
     }, TIMEOUT);
   });
 
