@@ -3,6 +3,8 @@ import { StyleSheet, Pressable, View } from 'react-native';
 import Text from 'components/Text';
 import IconArrowUp from 'components/svgs/IconArrowUp';
 
+import { useMode } from 'hooks/useMode'; // temp, for testing
+
 // const IconArrow = ({ isShowingMore }) => {
 //   if (isShowingMore) {
 //     return (
@@ -18,13 +20,27 @@ import IconArrowUp from 'components/svgs/IconArrowUp';
 
 // expansion should probably be handled in ClockScreen b/c affects ExpandedInfo
 const ButtonMoreLess = ({ isShowingMore, setIsShowingMore, style, ...rest }) => {
+  const { mode, setMode } = useMode(); // temp, for testing
+
   if (isShowingMore) {
     return (
       <Pressable
         style={[styles.btn, style]}
         onPress={() => {
-          console.log(`setting isShowingMore: ${!isShowingMore}`);
-          setIsShowingMore(!isShowingMore);
+          // setMode(prevMode => {
+          //   if (prevMode === 'day') {
+          //     console.log(`setting mode: night`);
+          //     return 'night';
+          //   }
+          //   else {
+          //     console.log(`setting mode: day`);
+          //     return 'day';
+          //   }
+          // });
+          setIsShowingMore(prevIsShowingMore => {
+            console.log(`setting isShowingMore: ${!prevIsShowingMore}`);
+            return !prevIsShowingMore;
+          });
         }}
         {...rest}
       >

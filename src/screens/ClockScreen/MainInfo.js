@@ -6,11 +6,13 @@ import Text from 'components/Text';
 import IconSun from 'components/svgs/IconSun';
 import IconMoon from 'components/svgs/IconMoon';
 
+import { useMode } from 'hooks/useMode';
 // import useIsMountedRef from 'hooks/useIsMountedRef';
 
 const MainInfo = ({
   currentTime = null, timeErrMsg = null, timeZoneAbbrev = null, location = null, style, ...rest
 }) => {
+  const { mode } = useMode();
   // const isMountedRef = useIsMountedRef();
 
   const Greeting = ({ currentTime }) => {
@@ -39,7 +41,7 @@ const MainInfo = ({
 
     return (
       <View style={styles.greetingRow}>
-        { timeCategory === 'evening' ? <IconMoon /> : <IconSun /> }
+        { mode === 'night' ? <IconMoon /> : <IconSun /> }
         <Text style={styles.greetingText}>
           Good {timeCategory}, it's currently
         </Text>

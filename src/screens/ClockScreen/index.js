@@ -9,6 +9,7 @@ import MainInfo from './MainInfo';
 import ButtonMoreLess from './ButtonMoreLess';
 import ExpandedInfo from './ExpandedInfo';
 
+import { useMode } from 'hooks/useMode';
 import useIsMountedRef from 'hooks/useIsMountedRef';
 
 const ClockScreen = () => {
@@ -33,6 +34,8 @@ const ClockScreen = () => {
   const [isShowingMore, setIsShowingMore] = useState(false);
 
   const isMountedRef = useIsMountedRef();
+
+  const { mode, setMode } = useMode();
 
   useEffect(() => {
     const fetchTimeData = async () => {
@@ -120,6 +123,20 @@ const ClockScreen = () => {
     };
     fetchLocationData();
   }, [ipAddress]); // only update location if ip address changes
+
+  // update day/night mode based on current time
+  // (decoupled from greeting for flexibility)
+  useEffect(() => {
+    let hourOfDay = moment(currentTime).format('HH');
+    if ((hourOfDay >= 18 || hourOfDay < 5) && mode !== 'night') {
+      setMode('night');
+      console.log('just set mode to night');
+    }
+    else if ((hourOfDay < 18 && hourOfDay >= 5) && mode !== 'day') {
+      setMode('day');
+      console.log('just set mode to day');
+    }
+  }, [currentTime]);
 
   return (
     <>

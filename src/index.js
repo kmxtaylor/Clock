@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   StyleSheet,
   SafeAreaView,
@@ -16,15 +16,30 @@ import {
 import * as SplashScreen from 'expo-splash-screen';
 
 import ClockScreen from 'screens/ClockScreen';
+import { ModeProvider } from 'contexts/Mode';
+import { useMode } from 'hooks/useMode';
 
 SplashScreen.preventAutoHideAsync();
 
 const App = () => {
+  const [bgImg, setBgImg] = useState(null);
+
+  const { mode } = useMode();
+
   const [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_500Medium,
     Roboto_700Bold
   });
+
+  useEffect(() => {
+    let requiredBgImg = require('/../assets/images/bg-image-nighttime.jpg');
+    if (mode === 'day') {
+      requiredBgImg = require('/../assets/images/bg-image-daytime.jpg');
+    }
+    setBgImg(requiredBgImg);
+    console.log('read new mode', mode);
+  }, [mode]);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -33,7 +48,7 @@ const App = () => {
   }, [fontsLoaded]);
 
   if (!fontsLoaded) {
-    return null;
+    return null; // all hooks calls must be before return
   }
 
   return (
@@ -44,15 +59,19 @@ const App = () => {
         onLayout={onLayoutRootView}
         testID='app-screen'
       >
-        <ImageBackground
-          // source={require('/../assets/images/bg-image-daytime.jpg')}
-          source={require('/../assets/images/bg-image-nighttime.jpg')}
-          style={styles.paddingContainer}
-          resizeMode='cover'
-        >
-          <View style={styles.overlay} />
-          <ClockScreen />
-        </ImageBackground>
+        <ModeProvider>
+          <ImageBackground
+            source={bgImg}
+            // source={require(getBgImg)}
+            // source={bgImg}
+            // source={require('/../assets/images/bg-image-nighttime.jpg')}
+            style={styles.paddingContainer}
+            resizeMode='cover'
+          >
+            <View style={styles.overlay} />
+            <ClockScreen />
+          </ImageBackground>
+        </ModeProvider>
       </SafeAreaView>
     </>
   );
@@ -68,8 +87,6 @@ const styles = StyleSheet.create({
     // paddingHorizontal: 15,
     // paddingVertical: 20,
     justifyContent: 'space-between',
-
-    // backgroundColor:'black',
   },
   overlay: { // overlay to slightly darken background image
     ...StyleSheet.absoluteFillObject,
