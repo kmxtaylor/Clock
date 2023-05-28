@@ -184,7 +184,7 @@ const ClockScreen = () => {
       </PaddingContainer>
       {/* Pop up content */}
       { isShowingMore && (
-        <ExpandedInfo timeDetails={timeDetails} />
+        <ExpandedInfo timeDetails={timeDetails} testID='expanded-info' />
       )}
     </CustomBackground>
   );

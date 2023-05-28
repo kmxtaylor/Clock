@@ -63,36 +63,39 @@ describe('clock screen test suite', () => {
 
     let expandedInfoNode, moreLessBtn, moreText, lessText;
     let text1, text2, testId1;
-    // expandedInfoNode = queryByTestId('expanded-info');
-    // expect(expandedInfoNode).toBeNull();
     await waitFor(() => {
+      expandedInfoNode = queryByTestId('expanded-info'); // return null, instead of throwing err, if not found
+      expect(expandedInfoNode).toBeNull();
+      // console.log(expandedInfoNode);
+
       moreLessBtn = getByTestId('btn-more-less');  // now passes -- mysteriously
       // moreLessBtn = queryByTestId('btn-more-less'); // now passes -- mysteriously
-      moreText = getByText('More'); // passes
-      // lessText = queryByText('Less');
+      // moreText = getByText('More'); // passes
 
-      text1 = queryByText('Good'); // returns null (but passes)
-      // text2 = queryByText('GOOD');
-      // text3 = queryByText('good');
+      // text1 = queryByText('Good'); // returns null (but passes)
 
       // testId1 = getByTestId('btn-refresh');
-      testId1 = getByTestId('main-info'); // passes
+      // testId1 = getByTestId('main-info'); // passes
     }, TIMEOUT);
-    console.log(moreLessBtn.props); // passes
-    console.log(moreText.props) // passes
-    console.log(text1); // returns null (but passes)
-    // console.log(lessText, text1, text2, text3);
-    console.log(testId1.props.children); /// passes
+    // console.log(moreLessBtn.props); // passes
+    // console.log(moreText.props) // passes
+    // console.log(text1); // returns null (but passes)
+    // // console.log(lessText, text1, text2, text3);
+    // console.log(testId1.props.children); /// passes
 
+    // fireEvent.press(moreLessBtn);
     
-    // await waitFor(() => {
-    //   // test show more
-    //   fireEvent.press(moreLessBtn);
-    //   expect(expandedInfoNode).toBeDefined();
-    // }, TIMEOUT);
+    await waitFor(() => {
+      // test show more
+      fireEvent.press(moreLessBtn);
+      expandedInfoNode = getByTestId('expanded-info'); // found this time
+      // expect(expandedInfoNode).toBeDefined();
+      expect(expandedInfoNode).not.toBeNull();
+      // console.log(expandedInfoNode);
 
-    // test show less
+      // test show less
 
+    }, TIMEOUT);
   });
 
   // check that elements match time of day: greeting, greeting icon, expanded info background color & text color
