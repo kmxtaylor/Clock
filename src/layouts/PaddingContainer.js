@@ -11,7 +11,8 @@ const PaddingContainer = ({ style, children, ...rest }) => {
 const styles = StyleSheet.create({
   paddingContainer: {
     flex: 1,
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 30,
     justifyContent: 'space-between',
   },
 });

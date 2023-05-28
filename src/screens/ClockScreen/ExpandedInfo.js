@@ -48,7 +48,7 @@ const ExpandedInfo = ({timeDetails = null, style, ...rest}) => {
 const styles = StyleSheet.create({
   container: {
     height: 220,
-    paddingVertical: 15,
+    paddingVertical: 10,
     justifyContent: 'space-around',
   },
   row: {
