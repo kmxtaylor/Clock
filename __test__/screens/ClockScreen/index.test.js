@@ -59,47 +59,24 @@ describe('clock screen test suite', () => {
   
   // check that more/less btn toggles expanded info
   test('should toggle expanded info on press of more/less btn', async () => {
-    const { getByTestId, getByText, queryByTestId, queryByText } = render(<ClockScreen />)
+    const { getByTestId, getByText, queryByTestId } = render(<ClockScreen />)
 
-    let expandedInfo, btnMoreLess, textMore, textLess;
-    let text1, text2, testId1;
     await waitFor(() => {
-      expandedInfo = queryByTestId('expanded-info'); // return null, instead of throwing err, if not found
+      // check that expanded info is not rendered initially
+      let expandedInfo = queryByTestId('expanded-info'); // return null, instead of throwing err, if not found
       expect(expandedInfo).toBeNull();
-      // console.log(expandedInfo);
 
-      // btnMoreLess = getByTestId('btn-more-less');  // now passes -- mysteriously
-      // btnMoreLess = queryByTestId('btn-more-less'); // now passes -- mysteriously
-      textMore = getByText('More'); // passes
-
-      // text1 = queryByText('Good'); // returns null (but passes)
-
-      // testId1 = getByTestId('btn-refresh');
-      // testId1 = getByTestId('main-info'); // passes
-    }, TIMEOUT);
-    // console.log(btnMoreLess.props); // passes
-    // console.log(textMore.props); // passes
-    // console.log(text1); // returns null (but passes)
-    // // console.log(textLess, text1, text2, text3);
-    // console.log(testId1.props.children); /// passes
-
-    // fireEvent.press(btnMoreLess);
-    
-    await waitFor(() => {
       // test show more
-      // fireEvent.press(btnMoreLess);
+      let textMore = getByText('More'); // passes
       fireEvent.press(textMore);
-      expandedInfo = queryByTestId('expanded-info'); // found this time
-      // expect(expandedInfo).toBeDefined();
+      expandedInfo = queryByTestId('expanded-info'); // not null this time
       expect(expandedInfo).not.toBeNull();
-      // console.log(expandedInfo);
 
       // test show less
-      // fireEvent.press(btnMoreLess);
-      // expandedInfo = queryByTestId('expanded-info'); // found this time
-      // // expect(expandedInfo).toBeDefined();
-      // expect(expandedInfo).toBeNull();
-      // // console.log(expandedInfo);
+      let textLess = getByText('Less'); // passes
+      fireEvent.press(textLess);
+      expandedInfo = queryByTestId('expanded-info'); // should be null again
+      expect(expandedInfo).toBeNull();
     }, TIMEOUT);
   });
 
@@ -111,15 +88,8 @@ describe('clock screen test suite', () => {
     // });  
 
     // check that expanded info background color & text color match time of day
-    // test('should match expanded info colors with time of day', async () => {
-    //   // fireEvent.press(moreLessBtn);
-    // }); 
-  });
-
-
-  // test if fails to get time data
-  // test('test if fails to get time data', async () => {
-
-  // });
-  
+    test('should match expanded info colors with time of day', async () => {
+      // fireEvent.press(moreLessBtn);
+    }); 
+  });  
 });
