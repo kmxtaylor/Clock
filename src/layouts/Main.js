@@ -1,14 +1,14 @@
 import { SafeAreaView, StatusBar } from 'react-native';
-import BackgroundContainer from 'layouts/BackgroundContainer';
+// import BackgroundContainer from 'layouts/BackgroundContainer';
 
-const Main = ({children}) => {
+const Main = ({children, ...rest}) => {
   return (
     <>
       <StatusBar />
-      <SafeAreaView style={{ flex: 1 }}>
-        <BackgroundContainer>
+      <SafeAreaView style={{ flex: 1 }} {...rest}>
+        {/* <BackgroundContainer> */}
           {children}
-        </BackgroundContainer>
+        {/* </BackgroundContainer> */}
       </SafeAreaView>
     </>
   );

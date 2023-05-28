@@ -11,7 +11,7 @@ import ExpandedInfo from './ExpandedInfo';
 
 import { useMode } from 'hooks/useMode';
 import useIsMountedRef from 'hooks/useIsMountedRef';
-import Layout from 'layouts/Main';
+import CustomBackground from 'layouts/BackgroundContainer';
 import PaddingContainer from 'layouts/PaddingContainer';
 
 const ClockScreen = () => {
@@ -141,7 +141,7 @@ const ClockScreen = () => {
   }, [currentTime]);
 
   return (
-    <Layout testID='app-screen'>
+    <CustomBackground testID='app-screen'>
       {/* Main content */}
       <PaddingContainer>
         <Header />
@@ -168,7 +168,7 @@ const ClockScreen = () => {
       { isShowingMore && (
         <ExpandedInfo timeDetails={timeDetails} />
       )}
-    </Layout>
+    </CustomBackground>
   );
 };
 

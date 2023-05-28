@@ -17,6 +17,7 @@ import * as SplashScreen from 'expo-splash-screen';
 
 import ClockScreen from 'screens/ClockScreen';
 import { ModeProvider } from 'contexts/Mode';
+import Main from './layouts/Main';
 import BackgroundContainer from 'layouts/BackgroundContainer';
 
 SplashScreen.preventAutoHideAsync();
@@ -40,17 +41,11 @@ const App = () => {
 
   return (
     <ModeProvider>
-      {/* all mode management must happen inside mode provider */}
-      {/* <StatusBar barStyle='light-content' />
-      <SafeAreaView
-        style={{flex: 1}}
+      <Main
         onLayout={onLayoutRootView}
-        testID='app-screen'
-      > */}
-        {/* <BackgroundContainer> */}
-          <ClockScreen onLayout={onLayoutRootView} />
-        {/* </BackgroundContainer> */}
-      {/* </SafeAreaView> */}
+      >
+        <ClockScreen />
+      </Main>
     </ModeProvider>
   );
 };
