@@ -51,7 +51,8 @@ const MainInfo = ({
       <Greeting currentTime={currentTime} />
       <View style={styles.clockRow}>
         <Text style={styles.time}>
-          {moment(currentTime).format('hh:mm:ss')}
+          {moment(currentTime).format('hh:mm')}
+          {/* {moment(currentTime).format('hh:mm:ss')} */}
         </Text>
         <View style={styles.abbrevsCol}>
           { currentTime && (
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   time: {
-    fontSize: 80,
+    fontSize: 85,
     fontWeight: '700',
   },
   abbrevsCol: {
