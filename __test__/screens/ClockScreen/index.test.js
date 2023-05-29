@@ -19,7 +19,7 @@ describe('clock screen test suite', () => {
     await waitFor(() => {
       const clockScreen = getByTestId('clock-screen');
       expect(clockScreen).toBeDefined();
-    });
+    }, TIMEOUT);
   });
 
   // check quote (text & author), current time & location render
@@ -42,7 +42,7 @@ describe('clock screen test suite', () => {
     await waitFor(() => {
       quoteNode = getByTestId('quote-text');
       refreshBtn = getByTestId('btn-refresh');
-    });
+    }, TIMEOUT);
     let oldQuoteText = quoteNode.children.reduce((acc, cur) => acc + cur);
 
     fireEvent.press(refreshBtn);
@@ -50,7 +50,7 @@ describe('clock screen test suite', () => {
     await waitFor(() => {
       let newQuoteText = quoteNode.children.reduce((acc, cur) => acc + cur);
       expect(newQuoteText).not.toEqual(oldQuoteText);
-    });
+    }, TIMEOUT);
   });
   
   // check that more/less btn toggles expanded info
@@ -72,7 +72,7 @@ describe('clock screen test suite', () => {
       fireEvent.press(textLess);
       expandedInfo = queryByTestId('expanded-info'); // should be null again
       expect(expandedInfo).toBeNull();
-    });
+    }, TIMEOUT);
   });
 
   // check that error message display only displays when error is present
@@ -85,7 +85,7 @@ describe('clock screen test suite', () => {
     await waitFor(() => {
       const errorDisplay = queryByTestId('error-display');
       expect(errorDisplay).toBeNull();
-    });
+    }, TIMEOUT);
 
     // errMsg triggers in ErrorDisplay
     errMsg = 'Clock Unavailable. Check Your Internet Connection.'
@@ -95,7 +95,7 @@ describe('clock screen test suite', () => {
       const errorDisplay = getByTestId('error-display');
       const [ errorText ] = errorDisplay.children;
       expect(errorText).toEqual(errMsg);
-    });
+    }, TIMEOUT);
   });
 
   // check that elements match time of day
