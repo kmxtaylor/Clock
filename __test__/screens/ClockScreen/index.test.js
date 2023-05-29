@@ -1,14 +1,15 @@
 
-import { render, waitFor, fireEvent } from '@testing-library/react-native';
+import { render, waitFor, fireEvent, waitForElementToBeRemoved } from '@testing-library/react-native';
 import { act } from 'react-test-renderer';
 import moment from 'moment';
 
+// import Root from 'index.js';
 import ClockScreen from 'screens/ClockScreen';
 import Colors from 'constants/Colors';
 
-import { useMode } from 'hooks/useMode';
-
+jest.setTimeout(10000);
 const TIMEOUT = { timeout: 10000 };
+// for some reason, the timeout only works when I set both
 
 describe('clock screen test suite', () => {
   // test if the app renders correctly without crashing: jest-expo is required
@@ -19,7 +20,7 @@ describe('clock screen test suite', () => {
     await waitFor(() => {
       const clockScreen = getByTestId('clock-screen');
       expect(clockScreen).toBeDefined();
-    }, TIMEOUT);
+    });
 
     // const mainContent = getByTestId('main-content');
     // expect(mainContent).toBeDefined();
@@ -27,15 +28,18 @@ describe('clock screen test suite', () => {
 
   // check quote (text & author), current time & location render
   test('should render the time, location & quote', async () => {
-    const { getByTestId } = render(<ClockScreen />)
+    const { getByTestId, queryByTestId } = render(<ClockScreen />)
 
     await waitFor(() => {
-      expect([
-        getByTestId('quote-text'),
-        getByTestId('quote-author'),
-        getByTestId('time'),
-        getByTestId('location'),
-      ]).toBeDefined();
+      expect(getByTestId('quote-text')).toBeDefined();
+      expect(getByTestId('quote-author')).toBeDefined();
+
+      expect(getByTestId('time')).toBeDefined();
+      // expect(queryByTestId('time')).not.toBeNull();
+      expect(getByTestId('location')).toBeDefined();
+
+      // let time = queryByTestId('time');
+      // console.log(time)
     }, TIMEOUT);
   });
 
@@ -48,7 +52,7 @@ describe('clock screen test suite', () => {
       // console.log(getByTestId('quote-text').children);
       quoteNode = getByTestId('quote-text');
       refreshBtn = getByTestId('btn-refresh');
-    }, TIMEOUT);
+    });
     let oldQuoteText = quoteNode.children.reduce((acc, cur) => acc + cur);
     // console.log(oldQuoteText);
 
@@ -58,7 +62,7 @@ describe('clock screen test suite', () => {
       let newQuoteText = quoteNode.children.reduce((acc, cur) => acc + cur);
       // console.log(oldQuoteText, newQuoteText);
       expect(newQuoteText).not.toEqual(oldQuoteText);
-    }, TIMEOUT);
+    });
   });
   
   // check that more/less btn toggles expanded info
@@ -81,12 +85,12 @@ describe('clock screen test suite', () => {
       fireEvent.press(textLess);
       expandedInfo = queryByTestId('expanded-info'); // should be null again
       expect(expandedInfo).toBeNull();
-    }, TIMEOUT);
-  });
+    });
+  }); // this failed w/ mode init proxy
 
   // check that elements match time of day: greeting, greeting icon, expanded info background color & text color
   describe('time-dependent test suite', () => {
-    // check that greeting & greeting icon match time of day
+    // check that greeting matches time of day
     // test('should match greeting text & icon with time of day', async () => {
     //   // fireEvent.press(moreLessBtn);
     // });  
@@ -97,58 +101,58 @@ describe('clock screen test suite', () => {
 
       // await act(() => {
       //   // expect(getByTestId('time')).toBeDefined();
-      // }, TIMEOUT);
+      // });
 
       // let time, amOrPm, btnMoreLess, expandedInfo;
-    //   await waitFor(() => {
-    //     // determine correct mode
-    //     let [ time ] = getByTestId('time').children; // passes
-    //     let [ amOrPm ] = getByTestId('am-or-pm').children; // passes
-    //     let timeStr = time + ' ' + amOrPm;
-    //     // console.log(timeStr)
-    //     let mode = null;
+      await waitFor(() => {
+        // determine correct mode
+        let [ time ] = getByTestId('time').children; // passes
+        let [ amOrPm ] = getByTestId('am-or-pm').children; // passes
+        let timeStr = time + ' ' + amOrPm;
+        // console.log(timeStr)
+        let mode = null;
 
-    //     const timeComparable = moment(timeStr, 'hh:mm A');
-    //     const dayModeStart = moment('05:00 AM', 'hh:mm A');
-    //     const nightModeStart = moment('06:00 PM', 'hh:mm A');
+        const timeComparable = moment(timeStr, 'hh:mm A');
+        const dayModeStart = moment('05:00 AM', 'hh:mm A');
+        const nightModeStart = moment('06:00 PM', 'hh:mm A');
 
-    //     const isDayMode = timeComparable.isSameOrAfter(dayModeStart) && timeComparable.isBefore(nightModeStart);
+        const isDayMode = timeComparable.isSameOrAfter(dayModeStart) && timeComparable.isBefore(nightModeStart);
 
-    //     if (isDayMode) {
-    //       mode = 'day';
-    //     }
-    //     else {
-    //       mode = 'night';
-    //     }
-    //     console.log(timeStr, ' is during ', mode, ' mode');
+        if (isDayMode) {
+          mode = 'day';
+        }
+        else {
+          mode = 'night';
+        }
+        console.log(timeStr, ' is during ', mode, ' mode');
 
-    //     // open expanded info
-    //     let btnMoreLess = getByTestId('btn-more-less'); // passes
-    //     // console.log(btnMoreLess.props);
-    //     fireEvent.press(btnMoreLess); // passes
-    //     // btnMoreLess should only become available after mode is set, making it a proxy for mode initialization
+        // open expanded info
+        let btnMoreLess = getByTestId('btn-more-less'); // passes
+        // console.log(btnMoreLess.props);
+        fireEvent.press(btnMoreLess); // passes
+        // btnMoreLess should only become available after mode is set, making it a proxy for mode initialization
 
 
-    //     let expandedInfo = getByTestId('expanded-info');
-    //     // console.log(expandedInfo.props);
-    //     console.log(expandedInfo.props.style.backgroundColor);
-    //     expect(expandedInfo.props.style.backgroundColor).not.toEqual('black');
+        let expandedInfo = getByTestId('expanded-info');
+        // console.log(expandedInfo.props);
+        console.log(expandedInfo.props.style.backgroundColor);
+        expect(expandedInfo.props.style.backgroundColor).not.toEqual('black');
 
-    //     // if the style is an array, flatten it
-    //     // let styles = {};
-    //     if (Array.isArray(expandedInfo.props.style)) {
-    //       styles = expandedInfo.props.style.reduce((acc, cur) => {
-    //         return { ...acc, ...cur };
-    //       }, {});
-    //     } else {
-    //       styles = expandedInfo.props.style;
-    //     }
-    //     // console.log(styles);
-    //     // console.log(styles.backgroundColor); // rn === black (default)
-    //     // expect(styles.backgroundColor).not.toEqual('black');
-    //     console.log(Colors[mode].background);
-    //     // expect(styles.backgroundColor).toEqual(Colors[].background);
-    //   });
+        // if the style is an array, flatten it
+        // let styles = {};
+        if (Array.isArray(expandedInfo.props.style)) {
+          styles = expandedInfo.props.style.reduce((acc, cur) => {
+            return { ...acc, ...cur };
+          }, {});
+        } else {
+          styles = expandedInfo.props.style;
+        }
+        // console.log(styles);
+        // console.log(styles.backgroundColor); // rn === black (default)
+        // expect(styles.backgroundColor).not.toEqual('black');
+        console.log(Colors[mode].background);
+        // expect(styles.backgroundColor).toEqual(Colors[].background);
+      });
 
     }); 
   });  
