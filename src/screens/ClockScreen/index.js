@@ -159,13 +159,13 @@ const ClockScreen = () => {
   return (
     <CustomBackground testID='clock-screen'>
       <PaddingContainer>
-        <Header />
+        <Header isShowingMore={isShowingMore} />
         <ErrorDisplay errMsg={timeErrMsg} />
         <MainContent />
       </PaddingContainer>
       {/* Pop up content */}
       { isShowingMore && (
-        <ExpandedInfo timeDetails={timeDetails} testID='expanded-info' />
+        <ExpandedInfo timeDetails={timeDetails} />
       )}
     </CustomBackground>
   );

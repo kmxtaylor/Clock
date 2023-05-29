@@ -7,7 +7,7 @@ import IconRefresh from 'components/svgs/IconRefresh';
 
 import useIsMountedRef from 'hooks/useIsMountedRef';
 
-const Header = ({ style, ...rest }) => {
+const Header = ({ isShowingMore, style, ...rest }) => {
   const [quoteText, setQuoteText] = useState(null);
   const [quoteAuthor, setQuoteAuthor] = useState(null);
 
@@ -32,8 +32,8 @@ const Header = ({ style, ...rest }) => {
     fetchQuoteData();
   }, []);
 
-  if (!quoteText || !quoteAuthor) {
-    // don't replace space or otherwise change layout
+  if (!quoteText || !quoteAuthor || isShowingMore) {
+    // don't re-render data, replace space or otherwise change layout
     return <View style={[styles.container, style]} {...rest}/>;
   }
   else {

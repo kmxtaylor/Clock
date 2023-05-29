@@ -39,6 +39,7 @@ const ExpandedInfo = ({timeDetails = null, style, ...rest}) => {
   return (
     <View
       style={[{backgroundColor: colors?.background ?? '#E9E9E9'}, styles.container, style]}
+      testID='expanded-info'
       {...rest}
     >
       <PaddingContainer>
