@@ -2,10 +2,10 @@ import { StyleSheet, Pressable, View } from 'react-native';
 
 import Text from 'components/Text';
 import IconArrowUp from 'components/svgs/IconArrowUp';
-// import { useMode } from 'hooks/useMode'; // temp, for testing
+import { useMode } from 'hooks/useMode'; // temp, for testing
 
 const ButtonMoreLess = ({ isShowingMore, setIsShowingMore, style, ...rest }) => {
-  // const { mode, setMode } = useMode(); // temp, for testing
+  const { mode, setMode, colors } = useMode(); // temp, for testing
 
   if (isShowingMore) {
     // Less btn
@@ -28,7 +28,7 @@ const ButtonMoreLess = ({ isShowingMore, setIsShowingMore, style, ...rest }) => 
         {...rest}
       >
         <View style={[styles.btn, styles.btnPadded, styles.btnBordered]}>
-          <Text style={styles.text}>
+          <Text style={[styles.text, {color: colors?.btnLabel}]}>
             Less
           </Text>
           <IconArrowUp />
@@ -46,7 +46,7 @@ const ButtonMoreLess = ({ isShowingMore, setIsShowingMore, style, ...rest }) => 
         )}
         {...rest}
       >
-        <Text style={styles.text}>
+        <Text style={[styles.text, {color: colors?.btnLabel}]}>
           More
         </Text>
         <IconArrowUp style={{transform: [{ rotate: '180deg' }]}} />
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: '500',
-    color: 'grey',
+    // color: 'grey',
     textTransform: 'uppercase',
     letterSpacing: 4,
     marginLeft: 15,

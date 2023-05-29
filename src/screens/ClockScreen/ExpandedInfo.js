@@ -20,8 +20,8 @@ const renderInfoRows = (timeDetails) => {
   for (const [label, val] of Object.entries(displayDetails)) {
     infoRows.push(
       <View key={label} style={styles.row}>
-        <Text style={[{color: colors?.text ?? '#3A3A3A'}, styles.leftColText]}>{label}</Text>
-        <Text style={[{color: colors?.text ?? '#3A3A3A'}, styles.rightColText]}>{val}</Text>
+        <Text style={[{color: colors?.text ?? 'white'}, styles.leftColText]}>{label}</Text>
+        <Text style={[{color: colors?.text ?? 'white'}, styles.rightColText]}>{val}</Text>
       </View>
     );
   }

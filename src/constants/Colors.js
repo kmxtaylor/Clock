@@ -1,20 +1,20 @@
-const white = '#FFFFFF';
-const grayLightest = '#F4F4F4';
+const white = 'white';
 const grayLight = '#E9E9E9';
 const gray = '#757575';
-const grayDark = '#3A3A3A';
-const black = '#050505';
+const black = 'black';
 
 const Colors = {
   day: {
-    text: grayDark,
+    text: black,
     background: grayLight,
+    btnLabel: gray,
   },
   night: {
     text: white,
     background: black,
+    btnLabel: gray,
   },
 };
 
-export { Colors, white, gray, grayDark, grayLight, grayLightest, black };
+export { Colors, white, gray, grayLight, black };
 export default Colors;
