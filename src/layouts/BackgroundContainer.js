@@ -17,7 +17,6 @@ const BackgroundContainer = ({ children, ...rest }) => {
         requiredBgImg = require('/../assets/images/bg-image-nighttime.jpg')
       }
       setBgImg(requiredBgImg);
-      // console.log('read new mode', mode);
     }
   }, [mode]);
 

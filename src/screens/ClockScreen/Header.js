@@ -17,7 +17,6 @@ const Header = ({ isShowingMore, style, ...rest }) => {
     try {
       const response = await axios.get('https://api.quotable.io/random');
       const quoteData = response.data;
-      // console.log(quoteData);
 
       if (isMountedRef.current) {
         setQuoteText(quoteData.content);
@@ -34,7 +33,7 @@ const Header = ({ isShowingMore, style, ...rest }) => {
 
   if (!quoteText || !quoteAuthor || isShowingMore) {
     // don't re-render data, replace space or otherwise change layout
-    return <View style={[styles.container, style]} {...rest}/>;
+    return <View style={[styles.container, style]} {...rest} />;
   }
   else {
     return (
@@ -47,13 +46,13 @@ const Header = ({ isShowingMore, style, ...rest }) => {
             {quoteAuthor}
           </Text>
         </View>
-          <Pressable
-            style={styles.btn}
-            onPress={fetchQuoteData}
-            testID='btn-refresh'
-          >
-            <IconRefresh />
-          </Pressable>
+        <Pressable
+          style={styles.btn}
+          onPress={fetchQuoteData}
+          testID='btn-refresh'
+        >
+          <IconRefresh />
+        </Pressable>
       </View>
     );
   }
@@ -62,7 +61,6 @@ const Header = ({ isShowingMore, style, ...rest }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    // alignItems: 'flex-start',
   },
   quoteCol: {
     flex: 1, // Take up remaining space in the row
@@ -81,10 +79,8 @@ const styles = StyleSheet.create({
     letterSpacing: 0.25,
   },
   btn: {
-    // width: 50, // Set a fixed width for the btnCol
     marginLeft: 15, // Add spacing between quoteCol and btnCol
     alignItems: 'center',
-    // justifyContent: 'center',
   },
 });
 

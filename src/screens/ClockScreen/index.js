@@ -30,7 +30,7 @@ const ClockScreen = () => {
    *  dayOfWeek: 2,
    *  weekNumber: 21,
    * }
-   * */ 
+   * */
   const [timeDetails, setTimeDetails] = useState(null);
   const [timeErrMsg, setTimeErrMsg] = useState(null);
   const [isShowingMore, setIsShowingMore] = useState(false);
@@ -45,9 +45,8 @@ const ClockScreen = () => {
         const ipResponse = await axios.get('http://worldtimeapi.org/api/ip');
         // const ipResponse = null; // for testing only
         const ipData = ipResponse.data;
-        // console.log(`ipData: ${JSON.stringify(ipData, null, 2)}`);
         const currentTime = moment(ipData.datetime).format('YYYY-MM-DD HH:mm:ss');
-        
+
         if (isMountedRef.current) {
           setIpAddress(ipData.client_ip);
           setCurrentTime(currentTime);
@@ -61,7 +60,6 @@ const ClockScreen = () => {
             weekNumber: ipData.week_number,
           };
           setTimeDetails(td);
-          // console.log(JSON.stringify(td, null, 2))
           setTimeErrMsg(null);
         }
       }
@@ -75,14 +73,13 @@ const ClockScreen = () => {
     };
 
     fetchTimeData();
-      
+
     const msInMin = 60000;
     // const msIn3Sec = 3000;
     // const msInSec = 1000;
     const intervalMS = msInMin;
     let intervalId = null;
 
-    // uncomment this only when needed (avoid getting blocked by API again)
     if (intervalMS >= 1000) { // sets hard limit to avoid over-querying API
       intervalId = setInterval( // exec on an interval
         fetchTimeData,
@@ -100,7 +97,6 @@ const ClockScreen = () => {
         const locationResponse = await axios.get(`http://ip-api.com/json/${ipAddress}`);
         // const locationResponse = null;  // for testing only
         const locationData = locationResponse?.data;
-        // console.log(locationData);
 
         const location = (locationData.city && locationData.region)
           ? `${locationData.city}, ${locationData.region}`
@@ -124,11 +120,9 @@ const ClockScreen = () => {
     let hourOfDay = moment(currentTime).format('HH');
     if ((hourOfDay >= 18 || hourOfDay < 5) && mode !== 'night') {
       setMode('night');
-      // console.log('just set mode to night');
     }
     else if ((hourOfDay < 18 && hourOfDay >= 5) && mode !== 'day') {
       setMode('day');
-      // console.log('just set mode to day');
     }
   }, [currentTime]);
 
@@ -139,7 +133,7 @@ const ClockScreen = () => {
 
     return (
       <View {...props}>
-        <MainInfo 
+        <MainInfo
           currentTime={currentTime}
           timeErrMsg={timeErrMsg}
           timeZoneAbbrev={timeDetails?.timeZone?.abbrev}
@@ -154,7 +148,7 @@ const ClockScreen = () => {
       </View>
     );
   };
-  
+
 
   return (
     <CustomBackground testID='clock-screen'>
@@ -164,7 +158,7 @@ const ClockScreen = () => {
         <MainContent />
       </PaddingContainer>
       {/* Pop up content */}
-      { isShowingMore && (
+      {isShowingMore && (
         <ExpandedInfo timeDetails={timeDetails} />
       )}
     </CustomBackground>

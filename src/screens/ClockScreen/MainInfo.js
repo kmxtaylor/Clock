@@ -11,14 +11,9 @@ const MainInfo = ({
   currentTime = null, timeErrMsg = null, timeZoneAbbrev = null, location = null, style, ...rest
 }) => {
   const { mode } = useMode();
-  // currentTime = '2023-05-28 00:24:06';
-  // console.log(`currentTime: ${currentTime}`);
 
   const Greeting = ({ currentTime }) => {
-    // console.log(`currentTime: ${currentTime}, location: ${location}`);
-    // console.log(`timeErrMsg: ${timeErrMsg}`);
     if (!currentTime) {
-      // console.log('No current time -- hiding greeting');
       return null;
     }
 
@@ -36,11 +31,10 @@ const MainInfo = ({
     else {
       console.log('error while calculating time category for', hr);
     }
-    // console.log(`hr: ${hr}; tc: ${tc}`)
 
     return (
       <View style={styles.greetingRow}>
-        { mode === 'night' ?
+        {mode === 'night' ?
           <IconMoon testID='icon-moon' /> :
           <IconSun testID='icon-sun' />
         }
@@ -57,18 +51,17 @@ const MainInfo = ({
       <View style={styles.clockRow}>
         <Text style={styles.time} testID='time'>
           {moment(currentTime).format('h:mm')}
-          {/* {moment(currentTime).format('hh:mm:ss')} */}
         </Text>
         <View style={styles.abbrevsCol}>
-          { currentTime && (
+          {currentTime && (
             <Text style={styles.amOrPm} testID='am-or-pm'>{moment(currentTime).format('A')}</Text>
           )}
-          { timeZoneAbbrev && (
+          {timeZoneAbbrev && (
             <Text style={styles.timeZoneAbbrev} testID='time-zone-abbrev'>{timeZoneAbbrev}</Text>
           )}
         </View>
       </View>
-      { location && (
+      {location && (
         <View style={styles.locationRow}>
           <Text style={styles.location} testID='location'>in {location}</Text>
         </View>
@@ -95,15 +88,12 @@ const styles = StyleSheet.create({
   clockRow: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    // textAlign: 'left',
-    // marginTop: 5,
   },
   time: {
     fontSize: 85,
     fontWeight: '700',
   },
   abbrevsCol: {
-    // justifyContent: 'flex-end',
     alignItems: 'flex-start',
     marginLeft: 10,
     paddingBottom: 20,

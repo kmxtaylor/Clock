@@ -20,8 +20,12 @@ const renderInfoRows = (timeDetails) => {
   for (const [label, val] of Object.entries(displayDetails)) {
     infoRows.push(
       <View key={label} style={styles.row}>
-        <Text style={[{color: colors?.text ?? 'white'}, styles.leftColText]}>{label}</Text>
-        <Text style={[{color: colors?.text ?? 'white'}, styles.rightColText]}>{val}</Text>
+        <Text style={[{ color: colors?.text ?? 'white' }, styles.leftColText]}>
+          {label}
+        </Text>
+        <Text style={[{ color: colors?.text ?? 'white' }, styles.rightColText]}>
+          {val}
+        </Text>
       </View>
     );
   }
@@ -29,7 +33,7 @@ const renderInfoRows = (timeDetails) => {
   return infoRows;
 };
 
-const ExpandedInfo = ({timeDetails = null, style, ...rest}) => {
+const ExpandedInfo = ({ timeDetails = null, style, ...rest }) => {
   const { colors } = useMode();
 
   if (!timeDetails) {
@@ -38,12 +42,12 @@ const ExpandedInfo = ({timeDetails = null, style, ...rest}) => {
 
   return (
     <View
-      style={[{backgroundColor: colors?.background ?? '#E9E9E9'}, styles.container, style]}
+      style={[{ backgroundColor: colors?.background ?? '#E9E9E9' }, styles.container, style]}
       testID='expanded-info'
       {...rest}
     >
       <PaddingContainer>
-        { renderInfoRows(timeDetails) }
+        {renderInfoRows(timeDetails)}
       </PaddingContainer>
     </View>
   );

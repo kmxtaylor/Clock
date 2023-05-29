@@ -5,23 +5,20 @@ const Modes = ['day', 'night'];
 
 const ModeContext = createContext({
   mode: '',
-  setMode: () => {},
+  setMode: () => { },
   colors: {},
-  // loading: true, // mainly for using async storage -- otherwise unnecessary
 });
 
 const ModeProvider = ({ children }) => {
   const [mode, setMode] = useState(null); // init to null to prevent flickering
-  // const [loading, setLoading] = useState(true);
   const colors = Colors[mode];
 
   return (
-    <ModeContext.Provider 
+    <ModeContext.Provider
       value={{
         mode,
-        setMode, 
+        setMode,
         colors,
-        // loading
       }}
     >
       {children}

@@ -1,6 +1,6 @@
 import { SafeAreaView, StatusBar } from 'react-native';
 
-const Main = ({children, ...rest}) => {
+const Main = ({ children, ...rest }) => {
   return (
     <>
       <StatusBar />

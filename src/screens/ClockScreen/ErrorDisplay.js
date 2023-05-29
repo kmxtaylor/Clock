@@ -1,7 +1,7 @@
 import Text from 'components/Text';
 import { StyleSheet } from 'react-native';
 
-const ErrorDisplay = ({errMsg = null, ...rest}) => {
+const ErrorDisplay = ({ errMsg = null, ...rest }) => {
   if (!errMsg) {
     return null;
   }
@@ -14,15 +14,11 @@ const ErrorDisplay = ({errMsg = null, ...rest}) => {
 };
 
 const styles = StyleSheet.create({
-  // text: {
-  //   fontSize: 24,
-  // },
   timeErrMsg: {
     fontSize: 50,
     fontWeight: '700',
     color: 'red',
     marginBottom: 100,
-    // marginBottom: '50%', // centers timeErrMsg w/o changing item alignment
   },
 });
 

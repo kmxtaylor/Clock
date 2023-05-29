@@ -1,6 +1,5 @@
 
 import { render, waitFor, fireEvent, waitForElementToBeRemoved } from '@testing-library/react-native';
-import { act } from 'react-test-renderer';
 import moment from 'moment';
 
 import ClockScreen from 'screens/ClockScreen';
@@ -9,7 +8,7 @@ import Colors from 'constants/Colors';
 
 jest.setTimeout(10000);
 const TIMEOUT = { timeout: 10000 };
-// for some reason, the timeout only works when I set both
+// for some reason, the timeout only works when I set both ^
 
 describe('clock screen test suite', () => {
   // test if the app renders correctly without crashing: jest-expo is required
@@ -21,9 +20,6 @@ describe('clock screen test suite', () => {
       const clockScreen = getByTestId('clock-screen');
       expect(clockScreen).toBeDefined();
     });
-
-    // const mainContent = getByTestId('main-content');
-    // expect(mainContent).toBeDefined();
   });
 
   // check quote (text & author), current time & location render
@@ -33,13 +29,8 @@ describe('clock screen test suite', () => {
     await waitFor(() => {
       expect(getByTestId('quote-text')).toBeDefined();
       expect(getByTestId('quote-author')).toBeDefined();
-
       expect(getByTestId('time')).toBeDefined();
-      // expect(queryByTestId('time')).not.toBeNull();
       expect(getByTestId('location')).toBeDefined();
-
-      // let time = queryByTestId('time');
-      // console.log(time)
     }, TIMEOUT);
   });
 
@@ -49,18 +40,15 @@ describe('clock screen test suite', () => {
 
     let quoteNode, refreshBtn;
     await waitFor(() => {
-      // console.log(getByTestId('quote-text').children);
       quoteNode = getByTestId('quote-text');
       refreshBtn = getByTestId('btn-refresh');
     });
     let oldQuoteText = quoteNode.children.reduce((acc, cur) => acc + cur);
-    // console.log(oldQuoteText);
 
     fireEvent.press(refreshBtn);
 
     await waitFor(() => {
       let newQuoteText = quoteNode.children.reduce((acc, cur) => acc + cur);
-      // console.log(oldQuoteText, newQuoteText);
       expect(newQuoteText).not.toEqual(oldQuoteText);
     });
   });
@@ -70,18 +58,17 @@ describe('clock screen test suite', () => {
     const { getByTestId, getByText, queryByTestId } = render(<ClockScreen />)
 
     await waitFor(() => {
-      // check that expanded info is not rendered initially
       let expandedInfo = queryByTestId('expanded-info'); // return null, instead of throwing err, if not found
       expect(expandedInfo).toBeNull();
 
       // test show more
-      let textMore = getByText('More'); // passes
+      let textMore = getByText('More');
       fireEvent.press(textMore);
       expandedInfo = queryByTestId('expanded-info'); // not null this time
       expect(expandedInfo).not.toBeNull();
 
       // test show less
-      let textLess = getByText('Less'); // passes
+      let textLess = getByText('Less');
       fireEvent.press(textLess);
       expandedInfo = queryByTestId('expanded-info'); // should be null again
       expect(expandedInfo).toBeNull();
@@ -107,7 +94,6 @@ describe('clock screen test suite', () => {
     await waitFor(() => {
       const errorDisplay = getByTestId('error-display');
       const [ errorText ] = errorDisplay.children;
-      // console.log(errorText);
       expect(errorText).toEqual(errMsg);
     });
   });
@@ -123,10 +109,6 @@ describe('clock screen test suite', () => {
         let [ time ] = getByTestId('time').children; // passes
         let [ amOrPm ] = getByTestId('am-or-pm').children; // passes
         let timeStr = time + ' ' + amOrPm;
-        // let timeStr = '1:00 AM'; // evening
-        // let timeStr = '7:00 AM'; // morning
-        // let timeStr = '2:00 PM'; // afternoon
-        // let timeStr = '8:00 PM'; // evening
         
         const t = moment(timeStr, 'h:mm A');
         const morningStart = moment('5:00 AM', 'h:mm A');
@@ -145,11 +127,9 @@ describe('clock screen test suite', () => {
         else {
           greeting = 'Good evening, it\'s currently';
         }
-        // console.log(greeting);
 
         // check that correct greeting is defined/displayed
         let displayedGreeting = getByText(greeting);
-        // console.log(displayedGreeting.children);
         expect(displayedGreeting).toBeDefined();
       }, TIMEOUT);
     }); 
@@ -163,8 +143,6 @@ describe('clock screen test suite', () => {
         let [ time ] = getByTestId('time').children; // passes
         let [ amOrPm ] = getByTestId('am-or-pm').children; // passes
         let timeStr = time + ' ' + amOrPm;
-        // let timeStr = '07:07 AM';
-        // console.log(timeStr)
         
         const timeComparable = moment(timeStr, 'h:mm');
         const dayModeStart = moment('5:00 AM', 'h:mm A');
@@ -182,11 +160,9 @@ describe('clock screen test suite', () => {
 
         // open expanded info
         let btnMoreLess = getByTestId('btn-more-less'); // passes
-        // console.log(btnMoreLess.props);
         fireEvent.press(btnMoreLess); // passes
 
         let expandedInfo = getByTestId('expanded-info');
-        // console.log(expandedInfo.props.style);
 
         // if the style is an array, flatten it
         let styles = {};
@@ -197,11 +173,9 @@ describe('clock screen test suite', () => {
         } else {
           styles = expandedInfo.props.style;
         }
-        // console.log(styles.backgroundColor);
-        // console.log(Colors[mode].background);
         expect(styles.backgroundColor).toEqual(Colors[mode].background);
       }, TIMEOUT);
-
-    }); 
+    });
+     
   });  
 });
