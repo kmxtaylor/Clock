@@ -7,11 +7,9 @@ const ErrorDisplay = ({errMsg = null, ...rest}) => {
   }
 
   return (
-    <Text
-      style={styles.timeErrMsg}
-      testID={'error-message'}
-      {...rest}
-    >{errMsg}</Text>
+    <Text style={styles.timeErrMsg} testID={'error-display'} {...rest}>
+      {errMsg}
+    </Text>
   );
 };
 

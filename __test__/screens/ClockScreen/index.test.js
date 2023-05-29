@@ -4,6 +4,7 @@ import { act } from 'react-test-renderer';
 import moment from 'moment';
 
 import ClockScreen from 'screens/ClockScreen';
+import ErrorDisplay from 'screens/ClockScreen/ErrorDisplay';
 import Colors from 'constants/Colors';
 
 jest.setTimeout(10000);
@@ -84,6 +85,30 @@ describe('clock screen test suite', () => {
       fireEvent.press(textLess);
       expandedInfo = queryByTestId('expanded-info'); // should be null again
       expect(expandedInfo).toBeNull();
+    });
+  });
+
+  // check that error message display only displays when error is present
+  test('should display error', async () => {
+    
+    // no errMsg = no ErrorDisplay
+    let errMsg = null;
+    const { queryByTestId } = render(<ErrorDisplay errMsg={errMsg} />)
+
+    await waitFor(() => {
+      const errorDisplay = queryByTestId('error-display');
+      expect(errorDisplay).toBeNull();
+    });
+
+    // errMsg triggers in ErrorDisplay
+    errMsg = 'Clock Unavailable. Check Your Internet Connection.'
+    const { getByTestId } = render(<ErrorDisplay errMsg={errMsg} />)
+
+    await waitFor(() => {
+      const errorDisplay = getByTestId('error-display');
+      const [ errorText ] = errorDisplay.children;
+      // console.log(errorText);
+      expect(errorText).toEqual(errMsg);
     });
   });
 
