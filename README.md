@@ -39,16 +39,25 @@ You may use other third-party APIs as alternatives to the listed options (e.g., 
 
 ## Design
 
-See the expected design in [the design folder](./design/). Please try your best to make your app look the same as the expected design. All the required assets for this project are in the /assets folder. 
+See the expected design in [the design folder](./design/). Please try your best to make your app look the same as the expected design. All the required assets for this project are in the /assets folder.
+
+See my design below (also in [the design folder](./design/)):
+![evening normal view](./design/evening-normal.png)
+
+![evening expanded view](./design/evening-expanded.png)
+
+![morning normal view](./design/morning-normal.png)
+
+![morning expanded view](./design/morning-expanded.png)
 
 ## To do
 
 When you finish, please do the following:
 
 1. design and develop the application
-1. add your tests to cover all possible user error scenarios
-1. commit and push your code
-2. add your name to this README file (see above)
-3. capture how your app looks locally in the simulated app on your machine
-4. put the captured image in the design folder
-5. edit this README file to display your captured image here in this README file (see the above displayed expected design as an example)
+2. add your tests to cover all possible user error scenarios
+3. commit and push your code
+4. add your name to this README file (see above)
+5. capture how your app looks locally in the simulated app on your machine
+6. put the captured image in the design folder
+7. edit this README file to display your captured image here in this README file (see the above displayed expected design as an example)
