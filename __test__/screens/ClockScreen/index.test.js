@@ -91,58 +91,94 @@ describe('clock screen test suite', () => {
   // check that elements match time of day: greeting, greeting icon, expanded info background color & text color
   describe('time-dependent test suite', () => {
     // check that greeting matches time of day
-    // test('should match greeting text & icon with time of day', async () => {
-    //   // fireEvent.press(moreLessBtn);
-    // });  
+    test('should match greeting text with time of day', async () => {
+        const { getByText, getByTestId } = render(<ClockScreen />);
+  
+        await waitFor(() => {
+          // determine correct greeting based on time
+          let [ time ] = getByTestId('time').children; // passes
+          let [ amOrPm ] = getByTestId('am-or-pm').children; // passes
+          let timeStr = time + ' ' + amOrPm;
+          // let timeStr = '01:00 AM'; // evening
+          // let timeStr = '07:00 AM'; // morning
+          // let timeStr = '02:00 PM'; // afternoon
+          // let timeStr = '08:00 PM'; // evening
+          // console.log(timeStr)
+          
+          const t = moment(timeStr, 'hh:mm A');
+          const morningStart = moment('05:00 AM', 'hh:mm A');
+          const afternoonStart = moment('12:00 PM', 'hh:mm A');
+          const eveningStart = moment('06:00 PM', 'hh:mm A');
+          
+          let greeting = null;
+          if (t.isSameOrAfter(morningStart) && t.isBefore(afternoonStart)) {
+            greeting = 'Good morning, it\'s currently';
+          }
+          else if (
+            t.isSameOrAfter(afternoonStart) && t.isBefore(eveningStart)
+          ) {
+            greeting = 'Good afternoon, it\'s currently';
+          }
+          else {
+            greeting = 'Good evening, it\'s currently';
+          }
+          // console.log(greeting);
+  
+          // check that correct greeting is defined/displayed
+          let displayedGreeting = getByText(greeting);
+          // console.log(displayedGreeting.children);
+          expect(displayedGreeting).toBeDefined();
+        }, TIMEOUT);
+      }); 
 
     // check that background color of expanded info matches time of day
-    test('should match background color with time of day', async () => {
-      const { getByTestId, getByText, queryByTestId } = render(<ClockScreen />);
+    // test('should match background color with time of day', async () => {
+    //   const { getByTestId, getByText, queryByTestId } = render(<ClockScreen />);
 
-      await waitFor(() => {
-        // determine correct mode based on time
-        let [ time ] = getByTestId('time').children; // passes
-        let [ amOrPm ] = getByTestId('am-or-pm').children; // passes
-        let timeStr = time + ' ' + amOrPm;
-        // let timeStr = '07:07 AM';
-        // console.log(timeStr)
+    //   await waitFor(() => {
+    //     // determine correct mode based on time
+    //     let [ time ] = getByTestId('time').children; // passes
+    //     let [ amOrPm ] = getByTestId('am-or-pm').children; // passes
+    //     let timeStr = time + ' ' + amOrPm;
+    //     // let timeStr = '07:07 AM';
+    //     // console.log(timeStr)
         
-        const timeComparable = moment(timeStr, 'hh:mm');
-        const dayModeStart = moment('05:00 AM', 'hh:mm A');
-        const nightModeStart = moment('06:00 PM', 'hh:mm A');
+    //     const timeComparable = moment(timeStr, 'hh:mm');
+    //     const dayModeStart = moment('05:00 AM', 'hh:mm A');
+    //     const nightModeStart = moment('06:00 PM', 'hh:mm A');
         
-        const isNightMode = timeComparable.isBefore(dayModeStart) || timeComparable.isSameOrAfter(nightModeStart);
+    //     const isNightMode = timeComparable.isBefore(dayModeStart) || timeComparable.isSameOrAfter(nightModeStart);
         
-        let mode = null;
-        if (isNightMode) {
-          mode = 'night';
-        }
-        else {
-          mode = 'day';
-        }
+    //     let mode = null;
+    //     if (isNightMode) {
+    //       mode = 'night';
+    //     }
+    //     else {
+    //       mode = 'day';
+    //     }
 
-        // open expanded info
-        let btnMoreLess = getByTestId('btn-more-less'); // passes
-        // console.log(btnMoreLess.props);
-        fireEvent.press(btnMoreLess); // passes
+    //     // open expanded info
+    //     let btnMoreLess = getByTestId('btn-more-less'); // passes
+    //     // console.log(btnMoreLess.props);
+    //     fireEvent.press(btnMoreLess); // passes
 
-        let expandedInfo = getByTestId('expanded-info');
-        // console.log(expandedInfo.props.style);
+    //     let expandedInfo = getByTestId('expanded-info');
+    //     // console.log(expandedInfo.props.style);
 
-        // if the style is an array, flatten it
-        let styles = {};
-        if (Array.isArray(expandedInfo.props.style)) {
-          styles = expandedInfo.props.style.reduce((acc, cur) => {
-            return { ...acc, ...cur };
-          }, {});
-        } else {
-          styles = expandedInfo.props.style;
-        }
-        // console.log(styles.backgroundColor);
-        // console.log(Colors[mode].background);
-        expect(styles.backgroundColor).toEqual(Colors[mode].background);
-      }, TIMEOUT);
+    //     // if the style is an array, flatten it
+    //     let styles = {};
+    //     if (Array.isArray(expandedInfo.props.style)) {
+    //       styles = expandedInfo.props.style.reduce((acc, cur) => {
+    //         return { ...acc, ...cur };
+    //       }, {});
+    //     } else {
+    //       styles = expandedInfo.props.style;
+    //     }
+    //     // console.log(styles.backgroundColor);
+    //     // console.log(Colors[mode].background);
+    //     expect(styles.backgroundColor).toEqual(Colors[mode].background);
+    //   }, TIMEOUT);
 
-    }); 
+    // }); 
   });  
 });

@@ -148,7 +148,7 @@ const ClockScreen = () => {
     }
     else {
       if (!currentTime) {
-        return null;
+        return <View testID="temp" />;
       }
       return (
         <View
