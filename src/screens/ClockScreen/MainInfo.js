@@ -11,6 +11,8 @@ const MainInfo = ({
   currentTime = null, timeErrMsg = null, timeZoneAbbrev = null, location = null, style, ...rest
 }) => {
   const { mode } = useMode();
+  // currentTime = '2023-05-28 00:24:06';
+  // console.log(`currentTime: ${currentTime}`);
 
   const Greeting = ({ currentTime }) => {
     // console.log(`currentTime: ${currentTime}, location: ${location}`);
@@ -54,7 +56,7 @@ const MainInfo = ({
       <Greeting currentTime={currentTime} />
       <View style={styles.clockRow}>
         <Text style={styles.time} testID='time'>
-          {moment(currentTime).format('hh:mm')}
+          {moment(currentTime).format('h:mm')}
           {/* {moment(currentTime).format('hh:mm:ss')} */}
         </Text>
         <View style={styles.abbrevsCol}>
@@ -104,7 +106,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'flex-end',
     alignItems: 'flex-start',
     marginLeft: 15,
-    paddingBottom: 15,
+    paddingBottom: 20,
   },
   locationRow: {
     alignItems: 'flex-start',

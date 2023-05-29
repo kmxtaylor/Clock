@@ -123,15 +123,15 @@ describe('clock screen test suite', () => {
         let [ time ] = getByTestId('time').children; // passes
         let [ amOrPm ] = getByTestId('am-or-pm').children; // passes
         let timeStr = time + ' ' + amOrPm;
-        // let timeStr = '01:00 AM'; // evening
-        // let timeStr = '07:00 AM'; // morning
-        // let timeStr = '02:00 PM'; // afternoon
-        // let timeStr = '08:00 PM'; // evening
+        // let timeStr = '1:00 AM'; // evening
+        // let timeStr = '7:00 AM'; // morning
+        // let timeStr = '2:00 PM'; // afternoon
+        // let timeStr = '8:00 PM'; // evening
         
-        const t = moment(timeStr, 'hh:mm A');
-        const morningStart = moment('05:00 AM', 'hh:mm A');
-        const afternoonStart = moment('12:00 PM', 'hh:mm A');
-        const eveningStart = moment('06:00 PM', 'hh:mm A');
+        const t = moment(timeStr, 'h:mm A');
+        const morningStart = moment('5:00 AM', 'h:mm A');
+        const afternoonStart = moment('12:00 PM', 'h:mm A');
+        const eveningStart = moment('6:00 PM', 'h:mm A');
         
         let greeting = null;
         if (t.isSameOrAfter(morningStart) && t.isBefore(afternoonStart)) {
@@ -166,9 +166,9 @@ describe('clock screen test suite', () => {
         // let timeStr = '07:07 AM';
         // console.log(timeStr)
         
-        const timeComparable = moment(timeStr, 'hh:mm');
-        const dayModeStart = moment('05:00 AM', 'hh:mm A');
-        const nightModeStart = moment('06:00 PM', 'hh:mm A');
+        const timeComparable = moment(timeStr, 'h:mm');
+        const dayModeStart = moment('5:00 AM', 'h:mm A');
+        const nightModeStart = moment('6:00 PM', 'h:mm A');
         
         const isNightMode = timeComparable.isBefore(dayModeStart) || timeComparable.isSameOrAfter(nightModeStart);
         
