@@ -18,10 +18,11 @@ const styles = StyleSheet.create({
   //   fontSize: 24,
   // },
   timeErrMsg: {
-    fontSize: 60,
+    fontSize: 50,
     fontWeight: '700',
     color: 'red',
-    marginBottom: '50%', // centers timeErrMsg w/o changing item alignment
+    marginBottom: 100,
+    // marginBottom: '50%', // centers timeErrMsg w/o changing item alignment
   },
 });
 

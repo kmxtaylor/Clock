@@ -75,12 +75,12 @@ const styles = StyleSheet.create({
     borderColor: 'black',
   },
   text: {
-    fontSize: 16,
-    fontWeight: '500',
+    fontSize: 15,
+    fontWeight: '700',
     // color: 'grey',
     textTransform: 'uppercase',
     letterSpacing: 4,
-    marginLeft: 15,
+    marginLeft: 12,
   },
 });
 

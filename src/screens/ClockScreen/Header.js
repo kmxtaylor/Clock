@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     // width: 50, // Set a fixed width for the btnCol
-    marginLeft: 20, // Add spacing between quoteCol and btnCol
+    marginLeft: 15, // Add spacing between quoteCol and btnCol
     alignItems: 'center',
     // justifyContent: 'center',
   },

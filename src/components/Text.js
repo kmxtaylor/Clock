@@ -20,7 +20,7 @@ const Text = ({ style, ...rest }) => {
         {
           // fontFamily: fontFam ?? 'Roboto_400Regular',
           color: style?.color ?? 'white',
-          fontSize: style?.fontSize ?? 16,
+          fontSize: style?.fontSize ?? 15,
           textAlign: style?.textAlign ?? 'center',
         },
         style,

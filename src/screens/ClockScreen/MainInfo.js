@@ -90,13 +90,13 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     textTransform: 'uppercase',
     letterSpacing: 2,
-    marginLeft: 20,
+    marginLeft: 15,
   },
   clockRow: {
     flexDirection: 'row',
     alignItems: 'flex-end',
     // textAlign: 'left',
-    marginTop: 5,
+    // marginTop: 5,
   },
   time: {
     fontSize: 85,
@@ -105,15 +105,15 @@ const styles = StyleSheet.create({
   abbrevsCol: {
     // justifyContent: 'flex-end',
     alignItems: 'flex-start',
-    marginLeft: 15,
+    marginLeft: 10,
     paddingBottom: 20,
   },
   locationRow: {
     alignItems: 'flex-start',
-    marginTop: 15,
+    marginTop: 5,
   },
   location: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 2,

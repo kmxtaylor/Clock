@@ -70,7 +70,7 @@ const ClockScreen = () => {
         setCurrentTime(null);
         setTimeDetails(null);
         setIsShowingMore(false);
-        setTimeErrMsg("Clock Unavailable. Check Your Internet Connection.");
+        setTimeErrMsg("Clock not available. Check internet connection.");
       }
     };
 
