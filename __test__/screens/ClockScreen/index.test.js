@@ -112,48 +112,47 @@ describe('clock screen test suite', () => {
     });
   });
 
-  // check that elements match time of day: greeting, greeting icon, expanded info background color & text color
+  // check that elements match time of day
   describe('time-dependent tests', () => {
     // check that greeting matches time of day
     test('should match greeting text with time of day', async () => {
-        const { getByText, getByTestId } = render(<ClockScreen />);
-  
-        await waitFor(() => {
-          // determine correct greeting based on time
-          let [ time ] = getByTestId('time').children; // passes
-          let [ amOrPm ] = getByTestId('am-or-pm').children; // passes
-          let timeStr = time + ' ' + amOrPm;
-          // let timeStr = '01:00 AM'; // evening
-          // let timeStr = '07:00 AM'; // morning
-          // let timeStr = '02:00 PM'; // afternoon
-          // let timeStr = '08:00 PM'; // evening
-          // console.log(timeStr)
-          
-          const t = moment(timeStr, 'hh:mm A');
-          const morningStart = moment('05:00 AM', 'hh:mm A');
-          const afternoonStart = moment('12:00 PM', 'hh:mm A');
-          const eveningStart = moment('06:00 PM', 'hh:mm A');
-          
-          let greeting = null;
-          if (t.isSameOrAfter(morningStart) && t.isBefore(afternoonStart)) {
-            greeting = 'Good morning, it\'s currently';
-          }
-          else if (
-            t.isSameOrAfter(afternoonStart) && t.isBefore(eveningStart)
-          ) {
-            greeting = 'Good afternoon, it\'s currently';
-          }
-          else {
-            greeting = 'Good evening, it\'s currently';
-          }
-          // console.log(greeting);
-  
-          // check that correct greeting is defined/displayed
-          let displayedGreeting = getByText(greeting);
-          // console.log(displayedGreeting.children);
-          expect(displayedGreeting).toBeDefined();
-        }, TIMEOUT);
-      }); 
+      const { getByText, getByTestId } = render(<ClockScreen />);
+
+      await waitFor(() => {
+        // determine correct greeting based on time
+        let [ time ] = getByTestId('time').children; // passes
+        let [ amOrPm ] = getByTestId('am-or-pm').children; // passes
+        let timeStr = time + ' ' + amOrPm;
+        // let timeStr = '01:00 AM'; // evening
+        // let timeStr = '07:00 AM'; // morning
+        // let timeStr = '02:00 PM'; // afternoon
+        // let timeStr = '08:00 PM'; // evening
+        
+        const t = moment(timeStr, 'hh:mm A');
+        const morningStart = moment('05:00 AM', 'hh:mm A');
+        const afternoonStart = moment('12:00 PM', 'hh:mm A');
+        const eveningStart = moment('06:00 PM', 'hh:mm A');
+        
+        let greeting = null;
+        if (t.isSameOrAfter(morningStart) && t.isBefore(afternoonStart)) {
+          greeting = 'Good morning, it\'s currently';
+        }
+        else if (
+          t.isSameOrAfter(afternoonStart) && t.isBefore(eveningStart)
+        ) {
+          greeting = 'Good afternoon, it\'s currently';
+        }
+        else {
+          greeting = 'Good evening, it\'s currently';
+        }
+        // console.log(greeting);
+
+        // check that correct greeting is defined/displayed
+        let displayedGreeting = getByText(greeting);
+        // console.log(displayedGreeting.children);
+        expect(displayedGreeting).toBeDefined();
+      }, TIMEOUT);
+    }); 
 
     // check that background color of expanded info matches time of day
     test('should match background color with time of day', async () => {
