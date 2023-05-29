@@ -76,7 +76,9 @@ const MainInfo = ({
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    marginBottom: 40,
+  },
   greetingRow: {
     flexDirection: 'row',
     textAlign: 'left',

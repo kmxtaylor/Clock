@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import axios from 'axios';
 import moment from 'moment';
 
-import Text from 'components/Text';
+import ErrorDisplay from './ErrorDisplay';
 import Header from './Header';
 import MainInfo from './MainInfo';
 import ButtonMoreLess from './ButtonMoreLess';
@@ -66,12 +66,10 @@ const ClockScreen = () => {
         }
       }
       catch (error) {
-        console.log(
-          'Error fetching time data:',
-          error,
-          // JSON.stringify(error, null, 2)
-        );
+        console.log('Error fetching time data:', error);
+        setCurrentTime(null);
         setTimeDetails(null);
+        setIsShowingMore(false);
         setTimeErrMsg("Clock Unavailable. Check Your Internet Connection.");
       }
     };
@@ -114,6 +112,7 @@ const ClockScreen = () => {
       }
       catch (error) {
         console.log('Error fetching time data:', error);
+        setLocation(null);
       }
     };
     fetchLocationData();
@@ -134,53 +133,35 @@ const ClockScreen = () => {
   }, [currentTime]);
 
   const MainContent = (props) => {
-    // const { testID } = props;
-    // console.log(testID)
-    if (timeErrMsg) {
-      return (
-        <Text
-          style={styles.timeErrMsg}
-          testID={'error-message'}
-          // testID={testID}
-          {...props}
-        >{timeErrMsg}</Text>
-      );
+    if (!currentTime) {
+      return null;
     }
-    else {
-      if (!currentTime) {
-        return null;
-      }
-      return (
-        <View
-          style={{gap: 40}}
-          // testID={testID}
-          {...props}
-        >
-          <MainInfo 
-            currentTime={currentTime}
-            timeErrMsg={timeErrMsg}
-            timeZoneAbbrev={timeDetails?.timeZone?.abbrev}
-            location={location}
-            testID='main-info'
-          />
-          <ButtonMoreLess
-            isShowingMore={isShowingMore}
-            setIsShowingMore={setIsShowingMore}
-            testID='btn-more-less'
-          />
-        </View>
-      );
-    }
+
+    return (
+      <View {...props}>
+        <MainInfo 
+          currentTime={currentTime}
+          timeErrMsg={timeErrMsg}
+          timeZoneAbbrev={timeDetails?.timeZone?.abbrev}
+          location={location}
+          testID='main-info'
+        />
+        <ButtonMoreLess
+          isShowingMore={isShowingMore}
+          setIsShowingMore={setIsShowingMore}
+          testID='btn-more-less'
+        />
+      </View>
+    );
   };
-    
+  
 
   return (
     <CustomBackground testID='clock-screen'>
       <PaddingContainer>
         <Header />
-        <MainContent
-          // testID='main-content'
-        />
+        <ErrorDisplay errMsg={timeErrMsg} />
+        <MainContent />
       </PaddingContainer>
       {/* Pop up content */}
       { isShowingMore && (
@@ -189,17 +170,5 @@ const ClockScreen = () => {
     </CustomBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 24,
-  },
-  timeErrMsg: {
-    fontSize: 60,
-    fontWeight: '700',
-    color: 'red',
-    marginBottom: '50%', // centers timeErrMsg w/o changing item alignment
-  },
-});
 
 export default ClockScreen;
