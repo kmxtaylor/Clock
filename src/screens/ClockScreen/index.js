@@ -40,16 +40,22 @@ const ClockScreen = () => {
   const { mode, setMode } = useMode();
 
   useEffect(() => {
+    const msInMin = 60000;
+    // const msIn3Sec = 3000;
+    // const msInSec = 1000;
+    const intervalMS = msInMin;
+    let intervalId = null;
+
     const fetchTimeData = async () => {
       try {
         const ipResponse = await axios.get('http://worldtimeapi.org/api/ip');
         // const ipResponse = null; // for testing only
         const ipData = ipResponse.data;
-        const currentTime = moment(ipData.datetime).format('YYYY-MM-DD HH:mm:ss');
+        const fetchedTime = moment(ipData.datetime).format('YYYY-MM-DD HH:mm:ss');
 
         if (isMountedRef.current) {
           setIpAddress(ipData.client_ip);
-          setCurrentTime(currentTime);
+          setCurrentTime(fetchedTime);
           let td = {
             timeZone: {
               abbrev: ipData.abbreviation,
@@ -62,6 +68,16 @@ const ClockScreen = () => {
           setTimeDetails(td);
           setTimeErrMsg(null);
         }
+    
+        // calculate millisec left until start of next minute after fetchedTime
+        let nextMinStart = moment(fetchedTime)
+          .startOf('minute')
+          .add(1, 'minute')
+        let syncDelay = nextMinStart.diff(fetchedTime, 'milliseconds');
+        // console.log('nextMinStart:', nextMinStart);
+        // console.log('inner syncDelay:', syncDelay);
+
+        return syncDelay;
       }
       catch (error) {
         console.log('Error fetching time data:', error);
@@ -72,20 +88,25 @@ const ClockScreen = () => {
       }
     };
 
-    fetchTimeData();
+    const fetchTimeDataOnInterval = async () => {
+      let syncDelay = parseInt(await fetchTimeData()) ?? 1000;
 
-    const msInMin = 60000;
-    // const msIn3Sec = 3000;
-    // const msInSec = 1000;
-    const intervalMS = msInMin;
-    let intervalId = null;
+      // sync w/ start of next minute
+      setTimeout(async () => { // delay interval so clock syncs w/ min start
+        // set interval for time data fetching
+        // if (intervalMS >= 1000) { // sets hard limit to avoid over-querying API
+        intervalId = setInterval( // exec on an interval
+          fetchTimeData,
+          intervalMS,
+        );
+        // }
 
-    if (intervalMS >= 1000) { // sets hard limit to avoid over-querying API
-      intervalId = setInterval( // exec on an interval
-        fetchTimeData,
-        intervalMS,
-      );
-    }
+        // fetch time data at start of 1st next minute
+        fetchTimeData();
+      }, syncDelay);
+    };
+
+    fetchTimeDataOnInterval();
 
     // clear interval when component unmounts
     return () => clearInterval(intervalId);
