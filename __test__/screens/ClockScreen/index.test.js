@@ -5,6 +5,7 @@ import moment from 'moment';
 import ClockScreen from 'screens/ClockScreen';
 import ErrorDisplay from 'screens/ClockScreen/ErrorDisplay';
 import Colors from 'constants/Colors';
+import { ModeProvider } from 'contexts/Mode';
 
 jest.setTimeout(10000);
 const TIMEOUT = { timeout: 10000 };
@@ -102,7 +103,11 @@ describe('clock screen test suite', () => {
   describe('time-dependent tests', () => {
     // check that greeting matches time of day
     test('should match greeting text with time of day', async () => {
-      const { getByText, getByTestId } = render(<ClockScreen />);
+      const { getByText, getByTestId } = render(
+        <ModeProvider>
+          <ClockScreen />
+        </ModeProvider>
+      );
 
       await waitFor(() => {
         // determine correct greeting based on time
@@ -136,7 +141,11 @@ describe('clock screen test suite', () => {
 
     // check that background color of expanded info matches time of day
     test('should match background color with time of day', async () => {
-      const { getByTestId, getByText, queryByTestId } = render(<ClockScreen />);
+      const { getByTestId, getByText, queryByTestId } = render(
+        <ModeProvider>
+          <ClockScreen />
+        </ModeProvider>
+      );
 
       await waitFor(() => {
         // determine correct mode based on time
@@ -144,7 +153,7 @@ describe('clock screen test suite', () => {
         let [ amOrPm ] = getByTestId('am-or-pm').children; // passes
         let timeStr = time + ' ' + amOrPm;
         
-        const timeComparable = moment(timeStr, 'h:mm');
+        const timeComparable = moment(timeStr, 'h:mm A');
         const dayModeStart = moment('5:00 AM', 'h:mm A');
         const nightModeStart = moment('6:00 PM', 'h:mm A');
         
