@@ -1,8 +1,8 @@
-# QuoteClock
+# Clock
 
 Coded by: Katie Taylor
 
-I developed a clock and quote app with time-adaptive theming for my Mobile Development class at Western Washington University.
+I developed a clock mobile app with time-adaptive theming and on-demand inspirational quotes for my Mobile Development class at Western Washington University.
 
 I coded the app with React Native. You can run the app with Expo with `npx expo start`, and connect to the Metro bundler with Expo Go or on your computer with an Android simulator/iOS emulator.
 
